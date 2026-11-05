@@ -1,0 +1,17 @@
+# Secrets
+.env
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# Local RAG index
+.rag/
+
+# Local-only files
+*.local.*
+CLAUDE.local.md
+.claude/settings.local.json
