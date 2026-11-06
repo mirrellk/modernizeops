@@ -1,0 +1,1089 @@
+{
+  "generated_at": "2026-11-06T08:40:03-05:00",
+  "golden": "evals/retrieval_golden.jsonl",
+  "config": {
+    "collection": "keystone_legacy",
+    "embedder": "nomic-embed-text",
+    "indexed_chunks": 391,
+    "hit_k": 5,
+    "rank_depth": 8
+  },
+  "overall": {
+    "questions": 15,
+    "hit_at_5": 0.8667,
+    "mrr": 0.6689,
+    "hits": 13,
+    "gate": {
+      "metric": "hit_at_5",
+      "threshold": 0.8,
+      "passed": true
+    }
+  },
+  "per_question": [
+    {
+      "id": "r01",
+      "question": "Which program writes the PRT-REC-DONE record with PRT-DATE, PRT-TIME and MY-NAME to DD PRTDONE?",
+      "expected_paths": [
+        "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol"
+      ],
+      "hit_at_5": true,
+      "first_relevant_rank": 2,
+      "reciprocal_rank": 0.5,
+      "expected_found_in_top_5": [
+        "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol"
+      ],
+      "results": [
+        {
+          "rank": 1,
+          "id": "corpus/standards/data-dictionary.md:119",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.032522,
+          "expected": false
+        },
+        {
+          "rank": 2,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol:58",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol",
+          "score": 0.032018,
+          "expected": true
+        },
+        {
+          "rank": 3,
+          "id": "corpus/standards/data-dictionary.md:111",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.031514,
+          "expected": false
+        },
+        {
+          "rank": 4,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol:16",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol",
+          "score": 0.031258,
+          "expected": true
+        },
+        {
+          "rank": 5,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol:8",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol",
+          "score": 0.030331,
+          "expected": true
+        },
+        {
+          "rank": 6,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol:53",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol",
+          "score": 0.030077,
+          "expected": true
+        },
+        {
+          "rank": 7,
+          "id": "corpus/standards/data-dictionary.md:66",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.015873,
+          "expected": false
+        },
+        {
+          "rank": 8,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol:42",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol",
+          "score": 0.015152,
+          "expected": true
+        }
+      ]
+    },
+    {
+      "id": "r02",
+      "question": "Which program writes its report to DD UT-S-REPORT and reads input cards from DA-S-CARDIN?",
+      "expected_paths": [
+        "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl"
+      ],
+      "hit_at_5": true,
+      "first_relevant_rank": 1,
+      "reciprocal_rank": 1.0,
+      "expected_found_in_top_5": [
+        "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl"
+      ],
+      "results": [
+        {
+          "rank": 1,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl:10",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl",
+          "score": 0.031778,
+          "expected": true
+        },
+        {
+          "rank": 2,
+          "id": "corpus/standards/data-dictionary.md:168",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.031778,
+          "expected": false
+        },
+        {
+          "rank": 3,
+          "id": "corpus/standards/data-dictionary.md:136",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.031746,
+          "expected": false
+        },
+        {
+          "rank": 4,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl:9",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl",
+          "score": 0.030835,
+          "expected": false
+        },
+        {
+          "rank": 5,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl:118",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl",
+          "score": 0.029828,
+          "expected": true
+        },
+        {
+          "rank": 6,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl:105",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl",
+          "score": 0.02901,
+          "expected": true
+        },
+        {
+          "rank": 7,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl:10",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl",
+          "score": 0.015625,
+          "expected": false
+        },
+        {
+          "rank": 8,
+          "id": "corpus/standards/data-dictionary.md:66",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.015625,
+          "expected": false
+        }
+      ]
+    },
+    {
+      "id": "r03",
+      "question": "Where is the DB2 table Z#####T declared with the ACCTNO, LIMIT, BALANCE and SURNAME columns?",
+      "expected_paths": [
+        "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl",
+        "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl",
+        "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl"
+      ],
+      "hit_at_5": true,
+      "first_relevant_rank": 3,
+      "reciprocal_rank": 0.333333,
+      "expected_found_in_top_5": [
+        "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl",
+        "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl"
+      ],
+      "results": [
+        {
+          "rank": 1,
+          "id": "corpus/standards/pic-mapping.md:92",
+          "path": "corpus/standards/pic-mapping.md",
+          "score": 0.032522,
+          "expected": false
+        },
+        {
+          "rank": 2,
+          "id": "corpus/standards/data-dictionary.md:15",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.032018,
+          "expected": false
+        },
+        {
+          "rank": 3,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl:17",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl",
+          "score": 0.030769,
+          "expected": true
+        },
+        {
+          "rank": 4,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl:18",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl",
+          "score": 0.029958,
+          "expected": true
+        },
+        {
+          "rank": 5,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CRETBL.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CRETBL.jcl",
+          "score": 0.029958,
+          "expected": false
+        },
+        {
+          "rank": 6,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/LOADTBL.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/LOADTBL.jcl",
+          "score": 0.029418,
+          "expected": false
+        },
+        {
+          "rank": 7,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol:57",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol",
+          "score": 0.028787,
+          "expected": false
+        },
+        {
+          "rank": 8,
+          "id": "corpus/standards/data-dictionary.md:136",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.028446,
+          "expected": false
+        }
+      ]
+    },
+    {
+      "id": "r04",
+      "question": "Which program moves ACCT-ADDR3 into ACCT-ADDR3-O on the REPREC report line?",
+      "expected_paths": [
+        "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl"
+      ],
+      "hit_at_5": true,
+      "first_relevant_rank": 1,
+      "reciprocal_rank": 1.0,
+      "expected_found_in_top_5": [
+        "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl"
+      ],
+      "results": [
+        {
+          "rank": 1,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl:169",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl",
+          "score": 0.032787,
+          "expected": true
+        },
+        {
+          "rank": 2,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl:179",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl",
+          "score": 0.031281,
+          "expected": false
+        },
+        {
+          "rank": 3,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl:123",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl",
+          "score": 0.031258,
+          "expected": false
+        },
+        {
+          "rank": 4,
+          "id": "corpus/standards/data-dictionary.md:154",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.016129,
+          "expected": false
+        },
+        {
+          "rank": 5,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl:20",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl",
+          "score": 0.015873,
+          "expected": true
+        },
+        {
+          "rank": 6,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106C.cbl:158",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106C.cbl",
+          "score": 0.015625,
+          "expected": false
+        },
+        {
+          "rank": 7,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl:18",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl",
+          "score": 0.015625,
+          "expected": false
+        },
+        {
+          "rank": 8,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106.cbl:157",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106.cbl",
+          "score": 0.015385,
+          "expected": false
+        }
+      ]
+    },
+    {
+      "id": "r05",
+      "question": "Which source file declares PROGRAM-ID CBL0006 even though the file is not named CBL0006?",
+      "expected_paths": [
+        "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBLC1.cobol"
+      ],
+      "hit_at_5": true,
+      "first_relevant_rank": 2,
+      "reciprocal_rank": 0.5,
+      "expected_found_in_top_5": [
+        "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBLC1.cobol"
+      ],
+      "results": [
+        {
+          "rank": 1,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0006.cobol:1",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0006.cobol",
+          "score": 0.032266,
+          "expected": false
+        },
+        {
+          "rank": 2,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBLC1.cobol:1",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBLC1.cobol",
+          "score": 0.028531,
+          "expected": true
+        },
+        {
+          "rank": 3,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0001.cobol:16",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0001.cobol",
+          "score": 0.027584,
+          "expected": false
+        },
+        {
+          "rank": 4,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106.cbl:1",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106.cbl",
+          "score": 0.016393,
+          "expected": false
+        },
+        {
+          "rank": 5,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106C.cbl:1",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106C.cbl",
+          "score": 0.016129,
+          "expected": false
+        },
+        {
+          "rank": 6,
+          "id": "corpus/standards/pic-mapping.md:54",
+          "path": "corpus/standards/pic-mapping.md",
+          "score": 0.016129,
+          "expected": false
+        },
+        {
+          "rank": 7,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0006.cobol:9",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0006.cobol",
+          "score": 0.015625,
+          "expected": false
+        },
+        {
+          "rank": 8,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL006AJ.jcl:11",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL006AJ.jcl",
+          "score": 0.015625,
+          "expected": false
+        }
+      ]
+    },
+    {
+      "id": "r06",
+      "question": "Where is ACCT-TABLE-ITEM defined with OCCURS 45 TIMES and ASCENDING KEY IS ACCT-NO for a binary search?",
+      "expected_paths": [
+        "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol"
+      ],
+      "hit_at_5": true,
+      "first_relevant_rank": 1,
+      "reciprocal_rank": 1.0,
+      "expected_found_in_top_5": [
+        "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol"
+      ],
+      "results": [
+        {
+          "rank": 1,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol:57",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol",
+          "score": 0.032787,
+          "expected": true
+        },
+        {
+          "rank": 2,
+          "id": "corpus/standards/data-dictionary.md:56",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.031281,
+          "expected": false
+        },
+        {
+          "rank": 3,
+          "id": "corpus/standards/pic-mapping.md:81",
+          "path": "corpus/standards/pic-mapping.md",
+          "score": 0.031258,
+          "expected": false
+        },
+        {
+          "rank": 4,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol:56",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol",
+          "score": 0.03125,
+          "expected": false
+        },
+        {
+          "rank": 5,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol:15",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol",
+          "score": 0.031054,
+          "expected": true
+        },
+        {
+          "rank": 6,
+          "id": "corpus/standards/data-dictionary.md:35",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.029206,
+          "expected": false
+        },
+        {
+          "rank": 7,
+          "id": "corpus/standards/pic-mapping.md:54",
+          "path": "corpus/standards/pic-mapping.md",
+          "score": 0.028571,
+          "expected": false
+        },
+        {
+          "rank": 8,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol:49",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol",
+          "score": 0.028382,
+          "expected": true
+        }
+      ]
+    },
+    {
+      "id": "r07",
+      "question": "Which program does a serial SEARCH ACCT-TABLE-ITEM VARYING TABLE-IDX?",
+      "expected_paths": [
+        "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol"
+      ],
+      "hit_at_5": true,
+      "first_relevant_rank": 1,
+      "reciprocal_rank": 1.0,
+      "expected_found_in_top_5": [
+        "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol"
+      ],
+      "results": [
+        {
+          "rank": 1,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol:56",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol",
+          "score": 0.032787,
+          "expected": true
+        },
+        {
+          "rank": 2,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol:57",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol",
+          "score": 0.032258,
+          "expected": false
+        },
+        {
+          "rank": 3,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol:49",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol",
+          "score": 0.031258,
+          "expected": false
+        },
+        {
+          "rank": 4,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol:48",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol",
+          "score": 0.03125,
+          "expected": true
+        },
+        {
+          "rank": 5,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol:15",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol",
+          "score": 0.03031,
+          "expected": true
+        },
+        {
+          "rank": 6,
+          "id": "corpus/standards/data-dictionary.md:56",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.030077,
+          "expected": false
+        },
+        {
+          "rank": 7,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0033.cobol:47",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0033.cobol",
+          "score": 0.029206,
+          "expected": false
+        },
+        {
+          "rank": 8,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol:15",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol",
+          "score": 0.028665,
+          "expected": false
+        }
+      ]
+    },
+    {
+      "id": "r08",
+      "question": "Which JCL runs the DB2 program CBLDB22 through IKJEFT01 with RUN PROGRAM?",
+      "expected_paths": [
+        "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CBLDB22R.jcl"
+      ],
+      "hit_at_5": true,
+      "first_relevant_rank": 1,
+      "reciprocal_rank": 1.0,
+      "expected_found_in_top_5": [
+        "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CBLDB22R.jcl"
+      ],
+      "results": [
+        {
+          "rank": 1,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CBLDB22R.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CBLDB22R.jcl",
+          "score": 0.032787,
+          "expected": true
+        },
+        {
+          "rank": 2,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CBLDB21R.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CBLDB21R.jcl",
+          "score": 0.032258,
+          "expected": false
+        },
+        {
+          "rank": 3,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CBLDB23R.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CBLDB23R.jcl",
+          "score": 0.031746,
+          "expected": false
+        },
+        {
+          "rank": 4,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jclproc/DB2JCL.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jclproc/DB2JCL.jcl",
+          "score": 0.03055,
+          "expected": false
+        },
+        {
+          "rank": 5,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/DB2SETUP.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/DB2SETUP.jcl",
+          "score": 0.030118,
+          "expected": false
+        },
+        {
+          "rank": 6,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL0014J.jcl:8",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL0014J.jcl",
+          "score": 0.027313,
+          "expected": false
+        },
+        {
+          "rank": 7,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL0013J.jcl:8",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL0013J.jcl",
+          "score": 0.02632,
+          "expected": false
+        },
+        {
+          "rank": 8,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL0015J.jcl:5",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL0015J.jcl",
+          "score": 0.025158,
+          "expected": false
+        }
+      ]
+    },
+    {
+      "id": "r09",
+      "question": "Which job loads rows into the DB2 account table with the DSNUPROC LOAD utility?",
+      "expected_paths": [
+        "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/LOADTBL.jcl"
+      ],
+      "hit_at_5": true,
+      "first_relevant_rank": 2,
+      "reciprocal_rank": 0.5,
+      "expected_found_in_top_5": [
+        "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/LOADTBL.jcl"
+      ],
+      "results": [
+        {
+          "rank": 1,
+          "id": "corpus/standards/data-dictionary.md:136",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.032522,
+          "expected": false
+        },
+        {
+          "rank": 2,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/LOADTBL.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/LOADTBL.jcl",
+          "score": 0.031746,
+          "expected": true
+        },
+        {
+          "rank": 3,
+          "id": "corpus/standards/pic-mapping.md:92",
+          "path": "corpus/standards/pic-mapping.md",
+          "score": 0.030886,
+          "expected": false
+        },
+        {
+          "rank": 4,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CRETBL.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CRETBL.jcl",
+          "score": 0.03031,
+          "expected": false
+        },
+        {
+          "rank": 5,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/LOADTBL.jcl:22",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/LOADTBL.jcl",
+          "score": 0.030214,
+          "expected": true
+        },
+        {
+          "rank": 6,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol:48",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol",
+          "score": 0.029514,
+          "expected": false
+        },
+        {
+          "rank": 7,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol:49",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol",
+          "score": 0.029469,
+          "expected": false
+        },
+        {
+          "rank": 8,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jclproc/DSNUPROC.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jclproc/DSNUPROC.jcl",
+          "score": 0.028992,
+          "expected": false
+        }
+      ]
+    },
+    {
+      "id": "r10",
+      "question": "Which job creates the DB2 tablespace, table and unique index for the account data?",
+      "expected_paths": [
+        "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CRETBL.jcl"
+      ],
+      "hit_at_5": true,
+      "first_relevant_rank": 1,
+      "reciprocal_rank": 1.0,
+      "expected_found_in_top_5": [
+        "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CRETBL.jcl"
+      ],
+      "results": [
+        {
+          "rank": 1,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CRETBL.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CRETBL.jcl",
+          "score": 0.032787,
+          "expected": true
+        },
+        {
+          "rank": 2,
+          "id": "corpus/standards/data-dictionary.md:136",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.032002,
+          "expected": false
+        },
+        {
+          "rank": 3,
+          "id": "corpus/standards/data-dictionary.md:15",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.03101,
+          "expected": false
+        },
+        {
+          "rank": 4,
+          "id": "corpus/standards/pic-mapping.md:92",
+          "path": "corpus/standards/pic-mapping.md",
+          "score": 0.030579,
+          "expected": false
+        },
+        {
+          "rank": 5,
+          "id": "corpus/standards/data-dictionary.md:35",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.029418,
+          "expected": false
+        },
+        {
+          "rank": 6,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/LOADTBL.jcl:22",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/LOADTBL.jcl",
+          "score": 0.016129,
+          "expected": false
+        },
+        {
+          "rank": 7,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/DB2SETUP.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/DB2SETUP.jcl",
+          "score": 0.015625,
+          "expected": false
+        },
+        {
+          "rank": 8,
+          "id": "corpus/standards/coding-standards.md:98",
+          "path": "corpus/standards/coding-standards.md",
+          "score": 0.015385,
+          "expected": false
+        }
+      ]
+    },
+    {
+      "id": "r11",
+      "question": "Where is ACCT-LIMIT declared as PIC S9(7)V99 without COMP-3, making ACCT-FIELDS longer than 170 bytes?",
+      "expected_paths": [
+        "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0010.cobol"
+      ],
+      "hit_at_5": false,
+      "first_relevant_rank": null,
+      "reciprocal_rank": 0.0,
+      "expected_found_in_top_5": [],
+      "results": [
+        {
+          "rank": 1,
+          "id": "corpus/standards/data-dictionary.md:56",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.032787,
+          "expected": false
+        },
+        {
+          "rank": 2,
+          "id": "corpus/standards/data-dictionary.md:35",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.03101,
+          "expected": false
+        },
+        {
+          "rank": 3,
+          "id": "corpus/standards/pic-mapping.md:36",
+          "path": "corpus/standards/pic-mapping.md",
+          "score": 0.030366,
+          "expected": false
+        },
+        {
+          "rank": 4,
+          "id": "corpus/standards/pic-mapping.md:16",
+          "path": "corpus/standards/pic-mapping.md",
+          "score": 0.030077,
+          "expected": false
+        },
+        {
+          "rank": 5,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol:15",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol",
+          "score": 0.029387,
+          "expected": false
+        },
+        {
+          "rank": 6,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol:15",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol",
+          "score": 0.029287,
+          "expected": false
+        },
+        {
+          "rank": 7,
+          "id": "corpus/standards/coding-standards.md:89",
+          "path": "corpus/standards/coding-standards.md",
+          "score": 0.02904,
+          "expected": false
+        },
+        {
+          "rank": 8,
+          "id": "corpus/standards/pic-mapping.md:54",
+          "path": "corpus/standards/pic-mapping.md",
+          "score": 0.016129,
+          "expected": false
+        }
+      ]
+    },
+    {
+      "id": "r12",
+      "question": "Where is the 88-level condition STATE defined on USA-STATE with VALUE 'Virginia'?",
+      "expected_paths": [
+        "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0007.cobol"
+      ],
+      "hit_at_5": true,
+      "first_relevant_rank": 5,
+      "reciprocal_rank": 0.2,
+      "expected_found_in_top_5": [
+        "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0007.cobol"
+      ],
+      "results": [
+        {
+          "rank": 1,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106.cbl:172",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106.cbl",
+          "score": 0.032018,
+          "expected": false
+        },
+        {
+          "rank": 2,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0006.cobol:146",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0006.cobol",
+          "score": 0.031746,
+          "expected": false
+        },
+        {
+          "rank": 3,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106C.cbl:180",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106C.cbl",
+          "score": 0.031514,
+          "expected": false
+        },
+        {
+          "rank": 4,
+          "id": "corpus/standards/data-dictionary.md:56",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.031099,
+          "expected": false
+        },
+        {
+          "rank": 5,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0007.cobol:150",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0007.cobol",
+          "score": 0.030331,
+          "expected": true
+        },
+        {
+          "rank": 6,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBLC1.cobol:147",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBLC1.cobol",
+          "score": 0.03031,
+          "expected": false
+        },
+        {
+          "rank": 7,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0007.cobol:16",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0007.cobol",
+          "score": 0.029437,
+          "expected": true
+        },
+        {
+          "rank": 8,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0007.cobol:146",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0007.cobol",
+          "score": 0.02904,
+          "expected": true
+        }
+      ]
+    },
+    {
+      "id": "r13",
+      "question": "Which program gets its input from SYSIN with ACCEPT instead of reading a file, and which job supplies that SYSIN data?",
+      "expected_paths": [
+        "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/ADDAMT.cobol",
+        "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/ADDAMT.jcl"
+      ],
+      "hit_at_5": false,
+      "first_relevant_rank": null,
+      "reciprocal_rank": 0.0,
+      "expected_found_in_top_5": [],
+      "results": [
+        {
+          "rank": 1,
+          "id": "corpus/legacy/COBOL Programming Course #4 - Testing/Labs/jcl/EMPPAY.JCL:1",
+          "path": "corpus/legacy/COBOL Programming Course #4 - Testing/Labs/jcl/EMPPAY.JCL",
+          "score": 0.016393,
+          "expected": false
+        },
+        {
+          "rank": 2,
+          "id": "corpus/standards/data-dictionary.md:15",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.016393,
+          "expected": false
+        },
+        {
+          "rank": 3,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL0033J.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL0033J.jcl",
+          "score": 0.016129,
+          "expected": false
+        },
+        {
+          "rank": 4,
+          "id": "corpus/standards/coding-standards.md:98",
+          "path": "corpus/standards/coding-standards.md",
+          "score": 0.016129,
+          "expected": false
+        },
+        {
+          "rank": 5,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0033.cobol:87",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0033.cobol",
+          "score": 0.015873,
+          "expected": false
+        },
+        {
+          "rank": 6,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL0013J.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL0013J.jcl",
+          "score": 0.015873,
+          "expected": false
+        },
+        {
+          "rank": 7,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL0014J.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL0014J.jcl",
+          "score": 0.015625,
+          "expected": false
+        },
+        {
+          "rank": 8,
+          "id": "corpus/standards/coding-standards.md:124",
+          "path": "corpus/standards/coding-standards.md",
+          "score": 0.015625,
+          "expected": false
+        }
+      ]
+    },
+    {
+      "id": "r14",
+      "question": "Which job compiles, links and runs PAYROL00 with the IGYWCLG procedure?",
+      "expected_paths": [
+        "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/PAYROL00.jcl"
+      ],
+      "hit_at_5": true,
+      "first_relevant_rank": 1,
+      "reciprocal_rank": 1.0,
+      "expected_found_in_top_5": [
+        "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/PAYROL00.jcl"
+      ],
+      "results": [
+        {
+          "rank": 1,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/PAYROL00.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/PAYROL00.jcl",
+          "score": 0.032522,
+          "expected": true
+        },
+        {
+          "rank": 2,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/PAYROL0X.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/PAYROL0X.jcl",
+          "score": 0.031514,
+          "expected": false
+        },
+        {
+          "rank": 3,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/PAYROL00.cobol:16",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/PAYROL00.cobol",
+          "score": 0.028577,
+          "expected": false
+        },
+        {
+          "rank": 4,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0033.cobol:103",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0033.cobol",
+          "score": 0.016393,
+          "expected": false
+        },
+        {
+          "rank": 5,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/PAYROL00.cobol:33",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/PAYROL00.cobol",
+          "score": 0.015873,
+          "expected": false
+        },
+        {
+          "rank": 6,
+          "id": "corpus/legacy/COBOL Programming Course #4 - Testing/Labs/cbl/DEPTPAY.CBL:14",
+          "path": "corpus/legacy/COBOL Programming Course #4 - Testing/Labs/cbl/DEPTPAY.CBL",
+          "score": 0.015873,
+          "expected": false
+        },
+        {
+          "rank": 7,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/HELLO.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/HELLO.jcl",
+          "score": 0.015625,
+          "expected": false
+        },
+        {
+          "rank": 8,
+          "id": "corpus/legacy/COBOL Programming Course #4 - Testing/Labs/cbl/EMPPAY.CBL:19",
+          "path": "corpus/legacy/COBOL Programming Course #4 - Testing/Labs/cbl/EMPPAY.CBL",
+          "score": 0.015625,
+          "expected": false
+        }
+      ]
+    },
+    {
+      "id": "r15",
+      "question": "Which program reads the RECIN file INTO IOAREA and writes REPOUT?",
+      "expected_paths": [
+        "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl"
+      ],
+      "hit_at_5": true,
+      "first_relevant_rank": 1,
+      "reciprocal_rank": 1.0,
+      "expected_found_in_top_5": [
+        "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl"
+      ],
+      "results": [
+        {
+          "rank": 1,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl:109",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl",
+          "score": 0.032266,
+          "expected": true
+        },
+        {
+          "rank": 2,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl:123",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl",
+          "score": 0.032002,
+          "expected": true
+        },
+        {
+          "rank": 3,
+          "id": "corpus/standards/data-dictionary.md:168",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.031514,
+          "expected": false
+        },
+        {
+          "rank": 4,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl:9",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl",
+          "score": 0.03125,
+          "expected": true
+        },
+        {
+          "rank": 5,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl:118",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl",
+          "score": 0.030077,
+          "expected": false
+        },
+        {
+          "rank": 6,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl:105",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl",
+          "score": 0.029877,
+          "expected": false
+        },
+        {
+          "rank": 7,
+          "id": "corpus/standards/data-dictionary.md:136",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.029052,
+          "expected": false
+        },
+        {
+          "rank": 8,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl:10",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl",
+          "score": 0.026014,
+          "expected": false
+        }
+      ]
+    }
+  ]
+}

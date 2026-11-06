@@ -1,0 +1,89 @@
+{
+  "description": "RAG quality gate (ADR 0001): a query is a hit when any of its top-5 results matches one of its expected entries. Gate: hit@5 >= 0.80. Expected answers were written from the corpus source, not from retrieval output.",
+  "k": 5,
+  "threshold": 0.8,
+  "queries": [
+    {
+      "id": "q01",
+      "query": "Which program declares ACCT-LIMIT as zoned decimal without COMP-3?",
+      "expect": [{"path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0010.cobol", "division": "DATA"}]
+    },
+    {
+      "id": "q02",
+      "query": "88-level condition name STATE that is true for Virginia",
+      "expect": [{"path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0007.cobol", "division": "DATA"}]
+    },
+    {
+      "id": "q03",
+      "query": "binary search of the account table using SEARCH ALL",
+      "expect": [{"path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol", "division": "PROCEDURE"}]
+    },
+    {
+      "id": "q04",
+      "query": "deliberately trigger an S0C7 data exception with a REDEFINES of character data as packed decimal",
+      "expect": [{"path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0014.cobol"}]
+    },
+    {
+      "id": "q05",
+      "query": "DIVIDE NUMERATOR BY DENOMINATOR where the denominator is zero",
+      "expect": [{"path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0013.cobol"}]
+    },
+    {
+      "id": "q06",
+      "query": "how are SQL errors formatted with DSNTIAR",
+      "expect": [
+        {"path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl", "paragraph": "SQL-ERROR-HANDLING"},
+        {"path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl", "paragraph": "SQL-ERROR-HANDLING"},
+        {"path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl", "paragraph": "SQL-ERROR-HANDLING"}
+      ]
+    },
+    {
+      "id": "q07",
+      "query": "JCL step that runs program CBL0001",
+      "expect": [
+        {"path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL0001J.jcl", "paragraph": "RUN"},
+        {"path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL0003J.jcl", "paragraph": "RUN"}
+      ]
+    },
+    {
+      "id": "q08",
+      "query": "run the DB2 program CBLDB21 in batch TSO with IKJEFT01",
+      "expect": [{"path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CBLDB21R.jcl"}]
+    },
+    {
+      "id": "q09",
+      "query": "IGYWCL compile and link-edit cataloged procedure",
+      "expect": [{"path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jclproc/IGYWCL.jcl"}]
+    },
+    {
+      "id": "q10",
+      "query": "what rounding mode to use when the COBOL statement has no ROUNDED phrase",
+      "expect": [{"path": "corpus/standards/coding-standards.md"}]
+    },
+    {
+      "id": "q11",
+      "query": "how many bytes does a PIC S9(7)V99 COMP-3 packed decimal field occupy",
+      "expect": [{"path": "corpus/standards/pic-mapping.md"}, {"path": "corpus/standards/data-dictionary.md"}]
+    },
+    {
+      "id": "q12",
+      "query": "is LAST-NAME flagged as PII in the data dictionary",
+      "expect": [{"path": "corpus/standards/data-dictionary.md"}]
+    },
+    {
+      "id": "q13",
+      "query": "program that ACCEPTs purchase amounts from the console and adds them up",
+      "expect": [{"path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/ADDAMT.cobol"}]
+    },
+    {
+      "id": "q14",
+      "query": "compute weekly and monthly employee pay",
+      "expect": [{"path": "corpus/legacy/COBOL Programming Course #4 - Testing/Labs/cbl/EMPPAY.CBL", "division": "PROCEDURE"}]
+    },
+    {
+      "id": "q15",
+      "query": "write the current date and time to the PRT-DONE file",
+      "expect": [{"path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol"}]
+    }
+  ]
+}
