@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "kb": {
+      "command": "uv",
+      "args": ["run", "python", "-m", "mcp_servers.kb_server.server"],
+      "env": { "OLLAMA_HOST": "${OLLAMA_HOST:-http://localhost:11434}" }
+    }
+  }
+}
