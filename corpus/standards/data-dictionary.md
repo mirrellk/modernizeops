@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Document ID | KFB-STD-003 |
-| Scope | Every record field defined in an `FD` entry or copybook in `corpus/legacy` |
+| Scope | Every record field defined in an `FD` entry or copybook in `corpus/legacy` (including the derived copybooks in `corpus/legacy/copybooks/`) |
 | Related | `pic-mapping.md` (types, byte lengths), `coding-standards.md` §3–§4 (parsing, PII logging) |
 
 Keystone Federal Bank is a fictional institution. Every field name below appears in `corpus/legacy` exactly as written. Citations are `file:line` relative to `corpus/legacy/`, using these abbreviations:
@@ -14,7 +14,14 @@ Keystone Federal Bank is a fictional institution. Every field name below appears
 
 ## Scope notes
 
-- **Copybooks:** `corpus/legacy` has no copybook files and no `COPY` statements. Every field here comes from an `FD` in the program source. The only `EXEC SQL INCLUDE` is `SQLCA` (e.g. `C3/CBLDB21.cbl:38`), DB2's built-in communication area, which is not a record layout.
+- **Copybooks:** the original course has no copybooks, and no program uses a `COPY` statement. Every field here comes from an `FD` in the program source. ModernizeOps has extracted each FD record layout repeated verbatim across two or more programs into a **derived copybook** in `corpus/legacy/copybooks/` (header: *DERIVED COPYBOOK - extracted by ModernizeOps from inline FD in …; originals unchanged*). The programs do not `COPY` them and were not modified. Derived copybooks are cited below as `copybooks/<NAME>.cpy:<lines>`, giving the lines of the record definition after the header. The only `EXEC SQL INCLUDE` is `SQLCA` (e.g. `C3/CBLDB21.cbl:38`), DB2's built-in communication area, which is not a record layout.
+
+  | Derived copybook | Record | Bytes | Section |
+  |---|---|---|---|
+  | `copybooks/ACCT-FIELDS.cpy:12-23` | `ACCT-FIELDS` | 170 | §1 |
+  | `copybooks/PRINT-REC-A.cpy:10-16` | `PRINT-REC` (Layout A) | 119 | §2.1 |
+  | `copybooks/PRINT-REC-B.cpy:13-21` | `PRINT-REC` (Layout B) | 62 | §2.2 |
+  | `copybooks/REPREC.cpy:9-15` | `REPREC` (`CBLDB21`/`CBLDB22`) | 119 | §5.1 |
 - **Not included:** WORKING-STORAGE items, and the DB2 table declaration `Z#####T` (`C3/CBLDB21.cbl:53-63`), which is not an FD. Its columns map one-to-one onto `ACCT-FIELDS` (`ACCTNO`↔`ACCT-NO`, `LIMIT`↔`ACCT-LIMIT`, `SURNAME`↔`LAST-NAME`, and so on).
 - **Main tables:** each table cites one representative definition per field. **Appendix A** lists every occurrence of every field.
 - **Offsets:** 1-based byte positions within the record. Byte lengths follow `pic-mapping.md`.
@@ -37,6 +44,8 @@ Balances and limits are flagged **Yes** because, together with an account number
 DD `ACCTREC`, read (`OPEN INPUT`) by 18 programs (see `INVENTORY.md`). Sixteen of them define the structure below, and two declare the record undivided (§1.1).
 
 Canonical definition: `C2/CBL0001.cobol:41-55`. The same layout appears in `C2/CBL0002`, `CBL0004`–`CBL0006`, `CBL0008`, `CBL0009`, `CBL0011`, `CBL0012`, `CBL0033`, `CBL006A`, `CBLC1`, `C3D/CBL0106` and `C3D/CBL0106C`. Variants are listed in §1.1.
+
+Derived copybook: `copybooks/ACCT-FIELDS.cpy:12-23`, extracted from the 14 identical definitions. The variants in §1.1 (`CBL0007`, `CBL0010`, `SRCHBIN`, `SRCHSER`) are not covered by it.
 
 | Level | Field | PIC / USAGE | Offset | Bytes | Meaning | PII | Cite |
 |---|---|---|---|---|---|---|---|
@@ -69,7 +78,7 @@ DD `PRTLINE`, written (`OPEN OUTPUT`). There are three layouts.
 
 ### 2.1 Layout A: full detail line (119 bytes)
 
-`C2/CBL0001.cobol:28-37`. Also in `C2/CBL0002` and `C2/CBL0033`.
+`C2/CBL0001.cobol:28-37`. Also in `C2/CBL0002` and `C2/CBL0033`. Derived copybook: `copybooks/PRINT-REC-A.cpy:10-16`.
 
 | Level | Field | PIC | Offset | Bytes | Meaning | PII | Cite |
 |---|---|---|---|---|---|---|---|
@@ -83,7 +92,7 @@ DD `PRTLINE`, written (`OPEN OUTPUT`). There are three layouts.
 
 ### 2.2 Layout B: columnar line with spacers (62 bytes)
 
-`C2/CBL0004.cobol:24-42`. Also in `C2/CBL0006`–`CBL0012`, `CBL006A`, `CBLC1`, `C3D/CBL0106` and `C3D/CBL0106C`.
+`C2/CBL0004.cobol:24-42`. Also in `C2/CBL0006`–`CBL0012`, `CBL006A`, `CBLC1`, `C3D/CBL0106` and `C3D/CBL0106C`. Derived copybook: `copybooks/PRINT-REC-B.cpy:13-21`. Layout C (§2.3) is not covered by it.
 
 | Level | Field | PIC | Offset | Bytes | Meaning | PII | Cite |
 |---|---|---|---|---|---|---|---|
@@ -139,7 +148,7 @@ DD `UT-S-REPORT`, written by the DB2 programs. Fields are filled from the host v
 
 ### 5.1 `CBLDB21` / `CBLDB22` layout (119 bytes)
 
-`C3/CBLDB21.cbl:26-32`. Same layout in `C3/CBLDB22.cbl:27-33`.
+`C3/CBLDB21.cbl:26-32`. Same layout in `C3/CBLDB22.cbl:27-33`. Derived copybook: `copybooks/REPREC.cpy:9-15`. The `CBLDB23` `REPREC` (§5.2) differs and is not covered by it.
 
 | Level | Field | PIC | Offset | Bytes | Meaning | PII | Cite |
 |---|---|---|---|---|---|---|---|
@@ -176,7 +185,7 @@ DD `UT-S-REPORT`, written by the DB2 programs. Fields are filled from the host v
 
 ## Appendix A: Every FD field occurrence
 
-Generated from the source; `FILLER` entries are omitted. 33 field names, 308 definitions.
+Generated from the program source; `FILLER` entries are omitted. 33 field names, 308 definitions. Derived copybooks are not counted here; they repeat definitions listed above.
 
 | Field | Occurrences (file:line) |
 |---|---|

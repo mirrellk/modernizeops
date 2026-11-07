@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-11-06T08:40:03-05:00",
+  "generated_at": "2026-11-06T08:56:26-05:00",
   "golden": "evals/retrieval_golden.jsonl",
   "config": {
     "collection": "keystone_legacy",
     "embedder": "nomic-embed-text",
-    "indexed_chunks": 391,
+    "indexed_chunks": 395,
     "hit_k": 5,
     "rank_depth": 8
   },
   "overall": {
     "questions": 15,
     "hit_at_5": 0.8667,
-    "mrr": 0.6689,
+    "mrr": 0.68,
     "hits": 13,
     "gate": {
       "metric": "hit_at_5",
@@ -35,7 +35,7 @@
       "results": [
         {
           "rank": 1,
-          "id": "corpus/standards/data-dictionary.md:119",
+          "id": "corpus/standards/data-dictionary.md:128",
           "path": "corpus/standards/data-dictionary.md",
           "score": 0.032522,
           "expected": false
@@ -49,7 +49,7 @@
         },
         {
           "rank": 3,
-          "id": "corpus/standards/data-dictionary.md:111",
+          "id": "corpus/standards/data-dictionary.md:120",
           "path": "corpus/standards/data-dictionary.md",
           "score": 0.031514,
           "expected": false
@@ -63,21 +63,21 @@
         },
         {
           "rank": 5,
-          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol:8",
-          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol",
-          "score": 0.030331,
-          "expected": true
-        },
-        {
-          "rank": 6,
           "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol:53",
           "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol",
           "score": 0.030077,
           "expected": true
         },
         {
+          "rank": 6,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol:8",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol",
+          "score": 0.029911,
+          "expected": true
+        },
+        {
           "rank": 7,
-          "id": "corpus/standards/data-dictionary.md:66",
+          "id": "corpus/standards/data-dictionary.md:75",
           "path": "corpus/standards/data-dictionary.md",
           "score": 0.015873,
           "expected": false
@@ -113,14 +113,14 @@
         },
         {
           "rank": 2,
-          "id": "corpus/standards/data-dictionary.md:168",
+          "id": "corpus/standards/data-dictionary.md:177",
           "path": "corpus/standards/data-dictionary.md",
           "score": 0.031778,
           "expected": false
         },
         {
           "rank": 3,
-          "id": "corpus/standards/data-dictionary.md:136",
+          "id": "corpus/standards/data-dictionary.md:145",
           "path": "corpus/standards/data-dictionary.md",
           "score": 0.031746,
           "expected": false
@@ -136,27 +136,27 @@
           "rank": 5,
           "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl:118",
           "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl",
-          "score": 0.029828,
+          "score": 0.029643,
           "expected": true
         },
         {
           "rank": 6,
-          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl:105",
-          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl",
-          "score": 0.02901,
-          "expected": true
-        },
-        {
-          "rank": 7,
-          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl:10",
-          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl",
-          "score": 0.015625,
+          "id": "corpus/legacy/copybooks/REPREC.cpy:1",
+          "path": "corpus/legacy/copybooks/REPREC.cpy",
+          "score": 0.029211,
           "expected": false
         },
         {
+          "rank": 7,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl:105",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl",
+          "score": 0.028814,
+          "expected": true
+        },
+        {
           "rank": 8,
-          "id": "corpus/standards/data-dictionary.md:66",
-          "path": "corpus/standards/data-dictionary.md",
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl:10",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl",
           "score": 0.015625,
           "expected": false
         }
@@ -171,8 +171,8 @@
         "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl"
       ],
       "hit_at_5": true,
-      "first_relevant_rank": 3,
-      "reciprocal_rank": 0.333333,
+      "first_relevant_rank": 2,
+      "reciprocal_rank": 0.5,
       "expected_found_in_top_5": [
         "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl",
         "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl"
@@ -187,52 +187,52 @@
         },
         {
           "rank": 2,
-          "id": "corpus/standards/data-dictionary.md:15",
-          "path": "corpus/standards/data-dictionary.md",
-          "score": 0.032018,
-          "expected": false
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl:17",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl",
+          "score": 0.03101,
+          "expected": true
         },
         {
           "rank": 3,
-          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl:17",
-          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl",
-          "score": 0.030769,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl:18",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl",
+          "score": 0.030159,
           "expected": true
         },
         {
           "rank": 4,
-          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl:18",
-          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl",
-          "score": 0.029958,
-          "expected": true
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CRETBL.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CRETBL.jcl",
+          "score": 0.030159,
+          "expected": false
         },
         {
           "rank": 5,
-          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CRETBL.jcl:1",
-          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/CRETBL.jcl",
-          "score": 0.029958,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/LOADTBL.jcl:1",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/LOADTBL.jcl",
+          "score": 0.029631,
           "expected": false
         },
         {
           "rank": 6,
-          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/LOADTBL.jcl:1",
-          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/LOADTBL.jcl",
-          "score": 0.029418,
+          "id": "corpus/standards/data-dictionary.md:145",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.028783,
           "expected": false
         },
         {
           "rank": 7,
           "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol:57",
           "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol",
-          "score": 0.028787,
+          "score": 0.028629,
           "expected": false
         },
         {
           "rank": 8,
-          "id": "corpus/standards/data-dictionary.md:136",
-          "path": "corpus/standards/data-dictionary.md",
-          "score": 0.028446,
-          "expected": false
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl:20",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl",
+          "score": 0.028382,
+          "expected": true
         }
       ]
     },
@@ -258,50 +258,50 @@
         },
         {
           "rank": 2,
-          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl:179",
-          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl",
-          "score": 0.031281,
+          "id": "corpus/legacy/copybooks/REPREC.cpy:1",
+          "path": "corpus/legacy/copybooks/REPREC.cpy",
+          "score": 0.03125,
           "expected": false
         },
         {
           "rank": 3,
-          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl:123",
-          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl",
-          "score": 0.031258,
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl:179",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl",
+          "score": 0.031054,
           "expected": false
         },
         {
           "rank": 4,
-          "id": "corpus/standards/data-dictionary.md:154",
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl:123",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl",
+          "score": 0.031025,
+          "expected": false
+        },
+        {
+          "rank": 5,
+          "id": "corpus/standards/data-dictionary.md:163",
           "path": "corpus/standards/data-dictionary.md",
           "score": 0.016129,
           "expected": false
         },
         {
-          "rank": 5,
+          "rank": 6,
           "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl:20",
           "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl",
           "score": 0.015873,
           "expected": true
         },
         {
-          "rank": 6,
+          "rank": 7,
           "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106C.cbl:158",
           "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106C.cbl",
-          "score": 0.015625,
-          "expected": false
-        },
-        {
-          "rank": 7,
-          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl:18",
-          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl",
-          "score": 0.015625,
+          "score": 0.015385,
           "expected": false
         },
         {
           "rank": 8,
-          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106.cbl:157",
-          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106.cbl",
+          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl:18",
+          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl",
           "score": 0.015385,
           "expected": false
         }
@@ -400,7 +400,7 @@
         },
         {
           "rank": 2,
-          "id": "corpus/standards/data-dictionary.md:56",
+          "id": "corpus/standards/data-dictionary.md:65",
           "path": "corpus/standards/data-dictionary.md",
           "score": 0.031281,
           "expected": false
@@ -423,28 +423,28 @@
           "rank": 5,
           "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol:15",
           "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol",
-          "score": 0.031054,
+          "score": 0.030835,
           "expected": true
         },
         {
           "rank": 6,
-          "id": "corpus/standards/data-dictionary.md:35",
+          "id": "corpus/standards/data-dictionary.md:42",
           "path": "corpus/standards/data-dictionary.md",
-          "score": 0.029206,
+          "score": 0.02886,
           "expected": false
         },
         {
           "rank": 7,
           "id": "corpus/standards/pic-mapping.md:54",
           "path": "corpus/standards/pic-mapping.md",
-          "score": 0.028571,
+          "score": 0.02837,
           "expected": false
         },
         {
           "rank": 8,
           "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol:49",
           "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol",
-          "score": 0.028382,
+          "score": 0.028175,
           "expected": true
         }
       ]
@@ -499,7 +499,7 @@
         },
         {
           "rank": 6,
-          "id": "corpus/standards/data-dictionary.md:56",
+          "id": "corpus/standards/data-dictionary.md:65",
           "path": "corpus/standards/data-dictionary.md",
           "score": 0.030077,
           "expected": false
@@ -515,7 +515,7 @@
           "rank": 8,
           "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol:15",
           "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol",
-          "score": 0.028665,
+          "score": 0.028485,
           "expected": false
         }
       ]
@@ -565,21 +565,21 @@
           "rank": 5,
           "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/DB2SETUP.jcl:1",
           "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/DB2SETUP.jcl",
-          "score": 0.030118,
+          "score": 0.029911,
           "expected": false
         },
         {
           "rank": 6,
           "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL0014J.jcl:8",
           "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL0014J.jcl",
-          "score": 0.027313,
+          "score": 0.027826,
           "expected": false
         },
         {
           "rank": 7,
           "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL0013J.jcl:8",
           "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/jcl/CBL0013J.jcl",
-          "score": 0.02632,
+          "score": 0.026847,
           "expected": false
         },
         {
@@ -606,7 +606,7 @@
       "results": [
         {
           "rank": 1,
-          "id": "corpus/standards/data-dictionary.md:136",
+          "id": "corpus/standards/data-dictionary.md:145",
           "path": "corpus/standards/data-dictionary.md",
           "score": 0.032522,
           "expected": false
@@ -615,7 +615,7 @@
           "rank": 2,
           "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/LOADTBL.jcl:1",
           "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/LOADTBL.jcl",
-          "score": 0.031746,
+          "score": 0.032002,
           "expected": true
         },
         {
@@ -636,21 +636,21 @@
           "rank": 5,
           "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/LOADTBL.jcl:22",
           "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/jcl/LOADTBL.jcl",
-          "score": 0.030214,
+          "score": 0.029958,
           "expected": true
         },
         {
           "rank": 6,
           "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol:48",
           "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol",
-          "score": 0.029514,
+          "score": 0.029324,
           "expected": false
         },
         {
           "rank": 7,
           "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol:49",
           "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol",
-          "score": 0.029469,
+          "score": 0.029274,
           "expected": false
         },
         {
@@ -684,7 +684,7 @@
         },
         {
           "rank": 2,
-          "id": "corpus/standards/data-dictionary.md:136",
+          "id": "corpus/standards/data-dictionary.md:145",
           "path": "corpus/standards/data-dictionary.md",
           "score": 0.032002,
           "expected": false
@@ -693,7 +693,7 @@
           "rank": 3,
           "id": "corpus/standards/data-dictionary.md:15",
           "path": "corpus/standards/data-dictionary.md",
-          "score": 0.03101,
+          "score": 0.030769,
           "expected": false
         },
         {
@@ -705,9 +705,9 @@
         },
         {
           "rank": 5,
-          "id": "corpus/standards/data-dictionary.md:35",
+          "id": "corpus/standards/data-dictionary.md:42",
           "path": "corpus/standards/data-dictionary.md",
-          "score": 0.029418,
+          "score": 0.028083,
           "expected": false
         },
         {
@@ -728,7 +728,7 @@
           "rank": 8,
           "id": "corpus/standards/coding-standards.md:98",
           "path": "corpus/standards/coding-standards.md",
-          "score": 0.015385,
+          "score": 0.015625,
           "expected": false
         }
       ]
@@ -746,58 +746,58 @@
       "results": [
         {
           "rank": 1,
-          "id": "corpus/standards/data-dictionary.md:56",
+          "id": "corpus/standards/data-dictionary.md:65",
           "path": "corpus/standards/data-dictionary.md",
           "score": 0.032787,
           "expected": false
         },
         {
           "rank": 2,
-          "id": "corpus/standards/data-dictionary.md:35",
-          "path": "corpus/standards/data-dictionary.md",
-          "score": 0.03101,
+          "id": "corpus/legacy/copybooks/ACCT-FIELDS.cpy:1",
+          "path": "corpus/legacy/copybooks/ACCT-FIELDS.cpy",
+          "score": 0.032002,
           "expected": false
         },
         {
           "rank": 3,
-          "id": "corpus/standards/pic-mapping.md:36",
-          "path": "corpus/standards/pic-mapping.md",
-          "score": 0.030366,
+          "id": "corpus/standards/data-dictionary.md:42",
+          "path": "corpus/standards/data-dictionary.md",
+          "score": 0.03031,
           "expected": false
         },
         {
           "rank": 4,
-          "id": "corpus/standards/pic-mapping.md:16",
+          "id": "corpus/standards/pic-mapping.md:36",
           "path": "corpus/standards/pic-mapping.md",
-          "score": 0.030077,
+          "score": 0.029911,
           "expected": false
         },
         {
           "rank": 5,
-          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol:15",
-          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol",
-          "score": 0.029387,
+          "id": "corpus/standards/pic-mapping.md:16",
+          "path": "corpus/standards/pic-mapping.md",
+          "score": 0.029857,
           "expected": false
         },
         {
           "rank": 6,
-          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol:15",
-          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol",
-          "score": 0.029287,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol:15",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol",
+          "score": 0.028958,
           "expected": false
         },
         {
           "rank": 7,
-          "id": "corpus/standards/coding-standards.md:89",
-          "path": "corpus/standards/coding-standards.md",
-          "score": 0.02904,
+          "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol:15",
+          "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol",
+          "score": 0.02886,
           "expected": false
         },
         {
           "rank": 8,
-          "id": "corpus/standards/pic-mapping.md:54",
-          "path": "corpus/standards/pic-mapping.md",
-          "score": 0.016129,
+          "id": "corpus/standards/coding-standards.md:89",
+          "path": "corpus/standards/coding-standards.md",
+          "score": 0.028624,
           "expected": false
         }
       ]
@@ -838,7 +838,7 @@
         },
         {
           "rank": 4,
-          "id": "corpus/standards/data-dictionary.md:56",
+          "id": "corpus/standards/data-dictionary.md:65",
           "path": "corpus/standards/data-dictionary.md",
           "score": 0.031099,
           "expected": false
@@ -894,8 +894,8 @@
         },
         {
           "rank": 2,
-          "id": "corpus/standards/data-dictionary.md:15",
-          "path": "corpus/standards/data-dictionary.md",
+          "id": "corpus/standards/coding-standards.md:98",
+          "path": "corpus/standards/coding-standards.md",
           "score": 0.016393,
           "expected": false
         },
@@ -908,8 +908,8 @@
         },
         {
           "rank": 4,
-          "id": "corpus/standards/coding-standards.md:98",
-          "path": "corpus/standards/coding-standards.md",
+          "id": "corpus/standards/data-dictionary.md:15",
+          "path": "corpus/standards/data-dictionary.md",
           "score": 0.016129,
           "expected": false
         },
@@ -974,7 +974,7 @@
           "rank": 3,
           "id": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/PAYROL00.cobol:16",
           "path": "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/cbl/PAYROL00.cobol",
-          "score": 0.028577,
+          "score": 0.028778,
           "expected": false
         },
         {
@@ -1031,7 +1031,7 @@
           "rank": 1,
           "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl:109",
           "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl",
-          "score": 0.032266,
+          "score": 0.032018,
           "expected": true
         },
         {
@@ -1043,44 +1043,44 @@
         },
         {
           "rank": 3,
-          "id": "corpus/standards/data-dictionary.md:168",
+          "id": "corpus/standards/data-dictionary.md:177",
           "path": "corpus/standards/data-dictionary.md",
-          "score": 0.031514,
+          "score": 0.031281,
           "expected": false
         },
         {
           "rank": 4,
           "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl:9",
           "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl",
-          "score": 0.03125,
+          "score": 0.03101,
           "expected": true
         },
         {
           "rank": 5,
           "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl:118",
           "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl",
-          "score": 0.030077,
+          "score": 0.029851,
           "expected": false
         },
         {
           "rank": 6,
           "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl:105",
           "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl",
-          "score": 0.029877,
+          "score": 0.029469,
           "expected": false
         },
         {
           "rank": 7,
-          "id": "corpus/standards/data-dictionary.md:136",
+          "id": "corpus/standards/data-dictionary.md:145",
           "path": "corpus/standards/data-dictionary.md",
           "score": 0.029052,
           "expected": false
         },
         {
           "rank": 8,
-          "id": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl:10",
-          "path": "corpus/legacy/COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl",
-          "score": 0.026014,
+          "id": "corpus/legacy/copybooks/REPREC.cpy:1",
+          "path": "corpus/legacy/copybooks/REPREC.cpy",
+          "score": 0.015873,
           "expected": false
         }
       ]
