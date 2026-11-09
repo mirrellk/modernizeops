@@ -4,6 +4,30 @@
       "command": "uv",
       "args": ["run", "python", "-m", "mcp_servers.kb_server.server"],
       "env": { "OLLAMA_HOST": "${OLLAMA_HOST:-http://localhost:11434}" }
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_PAT}",
+        "X-MCP-Toolsets": "repos,pull_requests"
+      }
+    },
+    "jira": {
+      "command": "mcp-atlassian",
+      "args": [],
+      "env": {
+        "JIRA_URL": "${JIRA_URL}",
+        "JIRA_USERNAME": "${JIRA_USERNAME}",
+        "JIRA_API_TOKEN": "${JIRA_API_TOKEN}",
+        "JIRA_PROJECTS_FILTER": "MOD",
+        "ENABLED_TOOLS": "jira_get_issue,jira_search,jira_add_comment,jira_transition_issue,jira_get_transitions"
+      }
+    },
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": { "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY:-}" }
     }
   }
 }
