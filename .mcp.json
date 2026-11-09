@@ -5,6 +5,10 @@
       "args": ["run", "python", "-m", "mcp_servers.kb_server.server"],
       "env": { "OLLAMA_HOST": "${OLLAMA_HOST:-http://localhost:11434}" }
     },
+    "office": {
+      "command": "uv",
+      "args": ["run", "python", "-m", "mcp_servers.office_server.server"]
+    },
     "github": {
       "type": "http",
       "url": "https://api.githubcopilot.com/mcp/",

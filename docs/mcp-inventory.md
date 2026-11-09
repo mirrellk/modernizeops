@@ -8,7 +8,7 @@ Approved MCP servers for this project. No server may be added to .mcp.json witho
 | github | GitHub | Official | Remote, Streamable HTTP | Fine-grained PAT, Bearer header | Toolsets: repos, pull_requests (30 tools) | mirrellk/modernizeops only (PAT scope) | Mirrell Knabe | 2026-11-09 |
 | jira (mcp-atlassian) | sooperset (community) | Community | Local, stdio (uv tool, pinned v0.24.1) | Atlassian API token | jira_get_issue, jira_search, jira_add_comment, jira_transition_issue, jira_get_transitions (5) | Project MOD on mirrellk.atlassian.net | Mirrell Knabe | 2026-11-09 |
 | context7 | Upstash | Official | Remote, Streamable HTTP | Optional API key (none set) | Library documentation lookup (2 tools) | Public docs only; receives query text | Mirrell Knabe | 2026-11-09 |
-| office (keystone-office) | Internal (this repo) | Internal | Local, stdio | None | Planned in Phase 6 | design/ and templates/ (local) | Mirrell Knabe | Pending |
+| office (keystone-office) | Internal (this repo) | Internal | Local, stdio | None | create_design_doc, append_impact_rows, read_impact_matrix (3) | design/ and templates/ (local) | Mirrell Knabe | 2026-11-09 |
 
 ## Rules
 
