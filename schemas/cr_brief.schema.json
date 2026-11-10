@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://modernizeops.local/schemas/cr_brief.schema.json",
   "title": "Change-request brief",
-  "description": "Structured brief for one Jira MOD change request, written to runs/<CR-KEY>/cr_brief.json. A brief is ready only when nothing blocks design; otherwise missing_information lists every blocking question.",
+  "description": "Structured brief for one Jira MOD change request, written to runs/<CR-KEY>/01-brief.json. A brief is ready only when nothing blocks design; otherwise missing_information lists every blocking question.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -39,10 +39,36 @@
     "fields": {
       "type": "array",
       "uniqueItems": true,
-      "description": "COBOL data names read, written or added by the change, e.g. ACCT-BALANCE. New fields use the name proposed in the brief.",
+      "description": "Existing COBOL data names (in data-dictionary.md) read or written by the change, e.g. ACCT-BALANCE. Fields the change adds go in new_fields.",
       "items": {
         "type": "string",
         "pattern": "^[A-Z0-9][A-Z0-9-]*$"
+      }
+    },
+    "new_fields": {
+      "type": "array",
+      "description": "Proposed COBOL data names the change adds, which do not exist yet in data-dictionary.md. Optional; empty or omitted when the change adds no field.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "pic", "purpose"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[A-Z0-9][A-Z0-9-]*$",
+            "description": "Proposed COBOL data name, e.g. OVER-LIMIT-O."
+          },
+          "pic": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Proposed PIC clause as stated or implied by the ticket, e.g. X(1)."
+          },
+          "purpose": {
+            "type": "string",
+            "minLength": 1,
+            "description": "What the field holds, in the ticket's terms."
+          }
+        }
       }
     },
     "acceptance_criteria": {

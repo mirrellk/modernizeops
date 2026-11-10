@@ -19,3 +19,4 @@ Approved MCP servers for this project. No server may be added to .mcp.json witho
 ## Change log
 
 - 2026-11-09: jira switched from `uvx mcp-atlassian` to a pinned `uv tool` install; HTTPS inspection on the workstation blocked uvx's runtime fetch from PyPI. `UV_NATIVE_TLS=true` set at user level.
+- 2026-11-10: renamed user-level `UV_NATIVE_TLS=true` to `UV_SYSTEM_CERTS=true` (uv deprecated the old name); same behavior, uv trusts the Windows certificate store.
