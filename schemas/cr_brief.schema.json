@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://modernizeops.local/schemas/cr_brief.schema.json",
+  "title": "Change-request brief",
+  "description": "Structured brief for one Jira MOD change request, written to runs/<CR-KEY>/cr_brief.json. A brief is ready only when nothing blocks design; otherwise missing_information lists every blocking question.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "cr_key",
+    "summary",
+    "programs",
+    "fields",
+    "acceptance_criteria",
+    "risk",
+    "pii",
+    "missing_information",
+    "ready"
+  ],
+  "properties": {
+    "cr_key": {
+      "type": "string",
+      "pattern": "^MOD-[1-9][0-9]*$",
+      "description": "Jira key of the change request, e.g. MOD-3."
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "description": "One or two sentences restating the change in plain language. Must not add rules the ticket does not state."
+    },
+    "programs": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "Legacy PROGRAM-IDs affected (from INVENTORY.md), e.g. CBL0001. Empty only when the brief is not ready.",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9#]{0,7}$"
+      }
+    },
+    "fields": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "COBOL data names read, written or added by the change, e.g. ACCT-BALANCE. New fields use the name proposed in the brief.",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z0-9][A-Z0-9-]*$"
+      }
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "description": "Testable statements, each checkable by an automated test. Taken from the ticket, not invented.",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "risk": {
+      "type": "string",
+      "enum": ["low", "medium", "high"],
+      "description": "Delivery risk: high if money arithmetic, record layouts or PII handling change."
+    },
+    "pii": {
+      "type": "boolean",
+      "description": "True if any listed field is flagged PII = Yes or Possible in data-dictionary.md."
+    },
+    "missing_information": {
+      "type": "array",
+      "description": "Questions that must be answered before design can start. Empty when ready.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["question", "why_it_blocks"],
+        "properties": {
+          "question": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A specific question a business owner can answer."
+          },
+          "why_it_blocks": {
+            "type": "string",
+            "minLength": 1,
+            "description": "What cannot be designed, built or tested until this is answered."
+          }
+        }
+      }
+    },
+    "ready": {
+      "type": "boolean",
+      "description": "True only when missing_information is empty and programs and acceptance_criteria are filled."
+    }
+  },
+  "if": {
+    "properties": { "ready": { "const": true } },
+    "required": ["ready"]
+  },
+  "then": {
+    "properties": {
+      "programs": { "minItems": 1 },
+      "acceptance_criteria": { "minItems": 1 },
+      "missing_information": { "maxItems": 0 }
+    }
+  },
+  "else": {
+    "properties": {
+      "missing_information": { "minItems": 1 }
+    }
+  }
+}
