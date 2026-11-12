@@ -1,6 +1,6 @@
 ---
 name: cr-brief
-description: The change-request brief contract for ModernizeOps - turns a Jira MOD ticket into a validated runs/<CR-KEY>/01-brief.json (cr_key, summary, programs, fields, acceptance_criteria, risk, pii, missing_information, ready). Use whenever you are reading, triaging, summarizing or writing a brief for a MOD change request, deciding whether a CR is ready for design, or listing what is missing from a vague ticket - even if the user only says "look at MOD-5" or "is this CR ready?".
+description: The change-request brief contract for ModernizeOps - turns a Jira MOD ticket into a validated runs/<CR-KEY>/01-brief.json (cr_key, summary, programs, fields, acceptance_criteria, risk, pii, analysis_notes, missing_information, ready). Use whenever you are reading, triaging, summarizing or writing a brief for a MOD change request, deciding whether a CR is ready for design, or listing what is missing from a vague ticket - even if the user only says "look at MOD-5" or "is this CR ready?".
 ---
 
 # Change-request brief
@@ -24,9 +24,9 @@ rule is worse than one that stops: a wrong guess flows into design, code and a p
 
   It prints `{"file", "valid", "errors": [{"path", "message"}]}` and exits 0 (valid), 1 (schema
   errors, or a semantic failure) or 2 (unreadable brief, schema, inventory or dictionary). Besides
-  the schema it checks that every program maps to exactly one source file in `INVENTORY.md` and
+  the schema it checks that every program maps to exactly one source file in `INVENTORY.md`,
   every name in `fields[]` exists in `data-dictionary.md` (`new_fields[]` is not checked against
-  the dictionary). An invalid brief goes back to cr-intake with the errors; it is never handed on
+  the dictionary), and `analysis_notes[]` is only used when `programs[]` names a program. An invalid brief goes back to cr-intake with the errors; it is never handed on
   to the next step.
 
 | Field | Meaning |
@@ -39,12 +39,39 @@ rule is worse than one that stops: a wrong guess flows into design, code and a p
 | `acceptance_criteria[]` | Testable statements drawn from the ticket |
 | `risk` | `low` / `medium` / `high` - high if money arithmetic, record layouts or PII handling change |
 | `pii` | True if any field is PII = Yes or Possible. If fields are not yet known, true when the change touches customer or account records |
-| `missing_information[]` | `{question, why_it_blocks}` for every blocker |
-| `ready` | True only if nothing is missing |
+| `analysis_notes[]` | Strings. Questions about the **existing** code of a named program that the legacy-analyst answers from source. Optional; never blocks |
+| `missing_information[]` | `{question, why_it_blocks}` for every **business** blocker (see escalation criteria) |
+| `ready` | True only if no business question is open |
 
 The schema enforces the consistency rules: `ready: true` requires at least one program and one
 acceptance criterion and an empty `missing_information`; `ready: false` requires at least one
-missing-information item.
+missing-information item. `analysis_notes[]` never affects `ready`.
+
+## Escalation criteria: missing_information vs analysis_notes
+
+Ask the business only what the code cannot answer.
+
+**`missing_information[]`** is ONLY for business decisions:
+- which program (or source file) is meant, when the ticket doesn't say or more than one fits;
+- the intended **new** behavior (values, conditions, new fields' name/size/position);
+- the acceptance criteria (what is compared, on which data, what counts as a pass);
+- business rules (definitions of fees, flags, totals the change introduces or redefines);
+- statements in the ticket that conflict and cannot be settled by the precedence rule below.
+
+**`analysis_notes[]`** is for questions about the **existing** layout or logic of a program named
+in `programs[]`: byte positions, line lengths, working-storage fields, totals lines, header and
+run-date fields, edit pictures, paragraph flow. The source answers these, so record them as plain
+strings for the legacy-analyst instead of asking. A name the ticket uses that is not in
+`data-dictionary.md` but is a working-storage item of the named program is an analysis note, not a
+blocker; keep it out of `fields[]` (which must resolve to the dictionary) and mention it in a note.
+If the ticket says "keep X as it is today", the existing layout of X is an analysis note.
+
+**Conflicting statements.** The ticket description wins over comments, unless a later comment
+explicitly says it supersedes or replaces the description (e.g. "this replaces the heading
+requirement above"). A comment that merely says something different is not a supersession: apply
+the description, and if the difference changes behavior or acceptance, ask in
+`missing_information[]`. Between two comments, the later one wins only if it explicitly supersedes
+the earlier one.
 
 ## How to build a brief
 
@@ -57,12 +84,15 @@ missing-information item.
    you make. A program must map to exactly one source file. A field the ticket adds goes in
    `new_fields[]` with the name and PIC the ticket gives; if it gives no name or size, ask.
 3. **Check every term the change depends on exists.** A flag, status, fee, rate or date the ticket
-   relies on must be found in a record layout, table or program. If it isn't, ask.
+   relies on must be found in a record layout, table or program. If it is a business term that
+   isn't anywhere, ask. If it is part of the existing code of a named program (working storage,
+   totals or header lines, byte offsets), add an `analysis_notes[]` entry instead.
 4. **Write acceptance criteria only from the ticket.** You may make a stated criterion testable
    (name the field, the file, the comparison), but don't add new behavior.
 5. **Set risk and pii** using the data dictionary's PII column and what the change touches.
-6. **Decide `ready`.** Any unresolved question → `false`. Good questions are specific, answerable
-   by a business owner, and say what they block.
+6. **Decide `ready`.** Any unresolved business question → `false`; analysis notes alone never make
+   a brief not ready. Good questions are specific, answerable by a business owner, and say what
+   they block.
 7. **Write** the file and check it against the schema (the coordinator runs the validator
    afterwards). If not ready, stop the pipeline here and report the questions;
    per project rules, ambiguous requirements are asked about, never guessed.
@@ -96,6 +126,10 @@ correct for one record above, one equal to and one below its limit."
     "OVER-LIMIT-O is 'N' for a record with ACCT-BALANCE equal to ACCT-LIMIT.",
     "OVER-LIMIT-O is 'N' for a record with ACCT-BALANCE less than ACCT-LIMIT."
   ],
+  "analysis_notes": [
+    "Confirm from CBL0001 source that the PRTLINE detail line is 119 bytes and that COMMENTS-O ends at byte 119.",
+    "Identify any header or run-date bytes in the CBL0001 report that a byte-for-byte comparison must account for."
+  ],
   "risk": "medium",
   "pii": true,
   "missing_information": [],
@@ -106,7 +140,9 @@ correct for one record above, one equal to and one below its limit."
 
 Why it is ready: the program maps to one source file, every existing field resolves to the data
 dictionary, the new column's name and one-byte size come from the ticket, the comparison and the
-equal case are stated, and each criterion maps to a test. Risk is medium because the output record
+equal case are stated, and each criterion maps to a test. The existing PRTLINE layout and any
+header bytes are questions about current code, so they are analysis notes for the legacy-analyst,
+not blockers. Risk is medium because the output record
 layout changes (119 → 120 bytes) but no money arithmetic does; pii is true because balances, limits
 and names are PII = Yes.
 

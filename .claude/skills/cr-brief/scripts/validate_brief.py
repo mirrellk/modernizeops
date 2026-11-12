@@ -10,7 +10,9 @@ Checks, in order:
        - every program maps to exactly one source file in corpus/legacy/INVENTORY.md;
        - every name in fields[] exists in corpus/standards/data-dictionary.md
          (new_fields[] holds proposed fields that do not exist yet and is not checked);
-       - ready=true is invalid while missing_information is non-empty.
+       - ready=true is invalid while missing_information is non-empty;
+       - analysis_notes[] requires at least one program (notes are about the existing
+         code of a named program, which the legacy-analyst resolves from source).
 
 Prints one JSON object to stdout:
     {"file": "...", "valid": true|false, "errors": [{"path": "...", "message": "..."}]}
@@ -122,6 +124,17 @@ def validate_semantics(
         errors.append({
             "path": "$.ready",
             "message": f"ready is true but missing_information has {len(missing)} item(s)",
+        })
+
+    notes = brief.get("analysis_notes")
+    has_program = isinstance(programs, list) and any(isinstance(p, str) for p in programs)
+    if isinstance(notes, list) and notes and not has_program:
+        errors.append({
+            "path": "$.analysis_notes",
+            "message": (
+                f"analysis_notes has {len(notes)} item(s) but programs is empty; notes must concern "
+                "the existing code of a named program (otherwise ask in missing_information)"
+            ),
         })
     return errors
 

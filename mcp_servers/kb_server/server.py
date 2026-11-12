@@ -2,7 +2,7 @@
 
     uv run python -m mcp_servers.kb_server.server        # stdio transport
 
-Tools: search_kb, get_source and list_programs. Resources: kb://standards/{name},
+Tools: search_kb, get_source, list_programs and inspect_account_file. Resources: kb://standards/{name},
 kb://copybooks/{name} and kb://inventory. Prompt: impact_analysis.
 
 Built on the mcp 2.x ``MCPServer``, which replaced v1's ``FastMCP``.
@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import json
 import re
+from decimal import Decimal
 from pathlib import Path
 from typing import Annotated, Literal, NoReturn, TypedDict
 
@@ -107,7 +108,7 @@ def normalize_tool_error(name: str, exc: ToolError) -> dict:
                 "suggestion": "Fix the arguments to match the tool's input schema."}
     if text.startswith("Unknown tool"):
         return {"error_category": "not_found", "retryable": False, "message": text,
-                "suggestion": "Use search_kb, get_source or list_programs."}
+                "suggestion": "Use search_kb, get_source, list_programs or inspect_account_file."}
     kind = "an unexpected internal error" if isinstance(exc, UnexpectedToolError) else text
     return {"error_category": "backend_unavailable", "retryable": False,
             "message": f"{name} failed with {kind}.",
@@ -120,7 +121,8 @@ mcp = KBServer(
         "Knowledge base for Keystone Federal Bank's COBOL batch estate: COBOL programs, derived "
         "copybooks and JCL in corpus/legacy, and the bank's standards in corpus/standards. "
         "Use search_kb to find code, then get_source to read exact lines before you cite "
-        "path:start-end. Use list_programs for the program inventory."
+        "path:start-end. Use list_programs for the program inventory. Use inspect_account_file "
+        "to summarize an ACCTREC data file (record count, totals, below/equal/above limit)."
     ),
 )
 
@@ -308,6 +310,136 @@ def get_source(path: str, start_line: int, end_line: int) -> SourceLines:
     rel = file.relative_to(REPO_ROOT.resolve()).as_posix()
     return SourceLines(path=rel, start_line=start_line, end_line=end_line, total_lines=total,
                        text="\n".join(lines[start_line - 1:end_line]))
+
+
+# --------------------------------------------------------------------------- account files
+
+# Derived copybook ACCT-FIELDS (corpus/legacy/copybooks/ACCT-FIELDS.cpy): (name, length, kind).
+ACCT_FIELDS: tuple[tuple[str, int, str], ...] = (
+    ("ACCT-NO", 8, "X"), ("ACCT-LIMIT", 5, "COMP-3"), ("ACCT-BALANCE", 5, "COMP-3"),
+    ("LAST-NAME", 20, "X"), ("FIRST-NAME", 15, "X"), ("STREET-ADDR", 25, "X"),
+    ("CITY-COUNTY", 20, "X"), ("USA-STATE", 15, "X"), ("RESERVED", 7, "X"), ("COMMENTS", 50, "X"),
+)
+ACCT_RECORD_LENGTH = 170
+assert sum(length for _, length, _ in ACCT_FIELDS) == ACCT_RECORD_LENGTH
+ACCT_MONEY_SCALE = 2  # S9(7)V99
+MAX_ACCOUNT_FILE_BYTES = 10 * 1024 * 1024
+SAMPLES_PER_CATEGORY = 3
+
+Category = Literal["below", "equal", "above"]
+
+
+class AccountSample(TypedDict):
+    record_no: int
+    acct_no_masked: str
+    limit: str
+    balance: str
+    category: Category
+
+
+class AccountFileSummary(TypedDict):
+    path: str
+    record_length: int
+    record_count: int
+    tlimit: str
+    tbalance: str
+    below: int
+    equal: int
+    above: int
+    sample_records: list[AccountSample]
+
+
+class InvalidNumericDataError(ValueError):
+    """Invalid packed-decimal data (the S0C7 equivalent). Carries no field contents."""
+
+
+def unpack_comp3(raw: bytes, scale: int) -> Decimal:
+    """Decode COMP-3: two digits per byte, last nibble the sign (C/F = +, D = -); else raise."""
+    nibbles = raw.hex().upper()
+    digits, sign = nibbles[:-1], nibbles[-1]
+    if not digits.isdigit() or sign not in "CDF":
+        raise InvalidNumericDataError("invalid packed-decimal nibble")
+    value = Decimal(int(digits)).scaleb(-scale)
+    return -value if sign == "D" else value
+
+
+def _mask_acct_no(raw: bytes) -> str:
+    text = raw.decode("cp037").strip()
+    return "****" + text[-4:] if text else "****"
+
+
+@mcp.tool()
+def inspect_account_file(path: str) -> AccountFileSummary:
+    """Decode a fixed-length EBCDIC ACCT-FIELDS data file (DD ACCTREC) and summarize it, PII-safe.
+
+    Use it to check a sample account file read by the account-report programs: its record
+    length and count, the exact totals of ACCT-LIMIT and ACCT-BALANCE (what TLIMIT/TBALANCE
+    style accumulators should print), and which records have a balance below, equal to or above
+    their limit, for choosing test records.
+
+    Do NOT use it on source code (use get_source) or on files with another layout: it assumes the
+    170-byte ACCT-FIELDS record of corpus/legacy/copybooks/ACCT-FIELDS.cpy (cp037 text, ACCT-LIMIT
+    and ACCT-BALANCE as S9(7)V99 COMP-3). Only files under corpus/ can be read. Names, addresses
+    and comments are never returned.
+
+    Args:
+        path: repo-relative path under corpus/, e.g. "corpus/legacy/COBOL Programming Course #2 -
+            Learning COBOL/Labs/data/data".
+
+    Returns {path, record_length, record_count, tlimit, tbalance, below, equal, above,
+    sample_records}. Money values are exact decimal strings (e.g. "1234.50"). below/equal/above
+    count records by ACCT-BALANCE vs ACCT-LIMIT. sample_records lists up to 3 records per
+    category as {record_no (1-based), acct_no_masked (last 4 digits only), limit, balance,
+    category}. A file whose size is not a multiple of 170, or with invalid packed data, is
+    refused with the record number and field name.
+    """
+    file = _resolve_corpus_path(path)
+    size = file.stat().st_size
+    if size > MAX_ACCOUNT_FILE_BYTES:
+        _fail("invalid_input", f"{path!r} is {size} bytes; the limit is {MAX_ACCOUNT_FILE_BYTES}.",
+              "Inspect a smaller sample file.")
+    data = file.read_bytes()
+    if not data or len(data) % ACCT_RECORD_LENGTH:
+        _fail("invalid_input",
+              f"{path!r} is {len(data)} bytes, not a positive multiple of the {ACCT_RECORD_LENGTH}-byte "
+              "ACCT-FIELDS record.",
+              "Check that this is an ACCTREC data file transferred in binary, not text mode.")
+
+    offsets: dict[str, tuple[int, int]] = {}
+    pos = 0
+    for name, length, _ in ACCT_FIELDS:
+        offsets[name] = (pos, pos + length)
+        pos += length
+
+    tlimit = tbalance = Decimal(0)
+    counts: dict[Category, int] = {"below": 0, "equal": 0, "above": 0}
+    samples: list[AccountSample] = []
+    for record_no, start in enumerate(range(0, len(data), ACCT_RECORD_LENGTH), start=1):
+        record = data[start:start + ACCT_RECORD_LENGTH]
+        values: dict[str, Decimal] = {}
+        for name in ("ACCT-LIMIT", "ACCT-BALANCE"):
+            lo, hi = offsets[name]
+            try:
+                values[name] = unpack_comp3(record[lo:hi], ACCT_MONEY_SCALE)
+            except InvalidNumericDataError:
+                _fail("invalid_input",
+                      f"Record {record_no}, field {name} (bytes {lo + 1}-{hi}): invalid packed-decimal data.",
+                      "Check the file is an ACCT-FIELDS file transferred in binary.")
+        limit, balance = values["ACCT-LIMIT"], values["ACCT-BALANCE"]
+        tlimit += limit
+        tbalance += balance
+        category: Category = "below" if balance < limit else "equal" if balance == limit else "above"
+        counts[category] += 1
+        if counts[category] <= SAMPLES_PER_CATEGORY:
+            lo, hi = offsets["ACCT-NO"]
+            samples.append(AccountSample(
+                record_no=record_no, acct_no_masked=_mask_acct_no(record[lo:hi]),
+                limit=str(limit), balance=str(balance), category=category))
+
+    rel = file.relative_to(REPO_ROOT.resolve()).as_posix()
+    return AccountFileSummary(
+        path=rel, record_length=ACCT_RECORD_LENGTH, record_count=len(data) // ACCT_RECORD_LENGTH,
+        tlimit=str(tlimit), tbalance=str(tbalance), sample_records=samples, **counts)
 
 
 _ROW = re.compile(r"^\|(?P<cells>.+)\|\s*$")

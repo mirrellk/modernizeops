@@ -323,6 +323,129 @@ def test_list_programs_missing_inventory_is_not_found(monkeypatch, tmp_path):
     assert error_of(e)["error_category"] == "not_found"
 
 
+# --------------------------------------------------------------------------- inspect_account_file
+# Synthetic ACCT-FIELDS records only; no real customer data.
+
+
+def _packed(value: str, sign: str | None = None) -> bytes:
+    """S9(7)V99 COMP-3 (5 bytes) for a test value, e.g. "123.45" or "-5.00"."""
+    from decimal import Decimal
+
+    d = Decimal(value)
+    digits = str(abs(int(d.scaleb(2)))).rjust(9, "0")
+    return bytes.fromhex(digits + (sign or ("D" if d < 0 else "C")))
+
+
+def _acct_record(acct_no: str, limit: str, balance: str, *, limit_raw: bytes | None = None) -> bytes:
+    text = lambda s, n: s.ljust(n).encode("cp037")
+    rec = (text(acct_no, 8) + (limit_raw or _packed(limit)) + _packed(balance)
+           + text("SYNTHLAST", 20) + text("SYNTHFIRST", 15) + text("1 TEST STREET", 25)
+           + text("TESTCITY", 20) + text("TESTSTATE", 15) + text("", 7) + text("SYNTH COMMENT", 50))
+    assert len(rec) == 170
+    return rec
+
+
+@pytest.fixture
+def fake_corpus(tmp_path, monkeypatch):
+    (tmp_path / "corpus" / "data").mkdir(parents=True)
+    monkeypatch.setattr(server, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(server, "CORPUS", tmp_path / "corpus")
+
+    def write(data: bytes, name: str = "acct") -> str:
+        (tmp_path / "corpus" / "data" / name).write_bytes(data)
+        return f"corpus/data/{name}"
+
+    return write
+
+
+SYNTH = [
+    ("00011001", "1000.00", "999.99"),    # below
+    ("00011002", "500.00", "500.00"),     # equal
+    ("00011003", "200.00", "200.01"),     # above
+    ("00011004", "0.00", "-12.34"),       # below (negative balance)
+    ("00011005", "9999999.99", "1.00"),   # below, max limit
+    ("00011006", "750.50", "750.50"),     # equal
+    ("00011007", "100.00", "100.00"),     # equal
+    ("00011008", "1.00", "1.00"),         # equal (4th: counted, not sampled)
+]
+
+
+def test_inspect_account_file_counts_totals_and_categories(fake_corpus):
+    path = fake_corpus(b"".join(_acct_record(*r) for r in SYNTH))
+    out = server.inspect_account_file(path)
+    assert out["path"] == path
+    assert (out["record_length"], out["record_count"]) == (170, 8)
+    assert out["tlimit"] == "10002551.49"
+    assert out["tbalance"] == "2540.16"
+    assert (out["below"], out["equal"], out["above"]) == (3, 4, 1)
+    by_cat = {}
+    for s in out["sample_records"]:
+        by_cat.setdefault(s["category"], []).append(s["record_no"])
+    assert by_cat == {"below": [1, 4, 5], "equal": [2, 6, 7], "above": [3]}
+    assert out["sample_records"][0] == {"record_no": 1, "acct_no_masked": "****1001",
+                                        "limit": "1000.00", "balance": "999.99", "category": "below"}
+
+
+def test_inspect_account_file_never_returns_names_addresses_or_full_acct_no(fake_corpus):
+    out = json.dumps(server.inspect_account_file(fake_corpus(b"".join(_acct_record(*r) for r in SYNTH))))
+    for secret in ("SYNTH", "TEST STREET", "TESTCITY", "TESTSTATE", "00011001"):
+        assert secret not in out
+
+
+def test_inspect_account_file_accepts_f_sign_nibble(fake_corpus):
+    path = fake_corpus(_acct_record("00000001", "", "5.00", limit_raw=_packed("10.00", sign="F")))
+    out = server.inspect_account_file(path)
+    assert out["tlimit"] == "10.00" and out["below"] == 1
+
+
+@pytest.mark.parametrize(
+    ("raw", "what"),
+    [(bytes.fromhex("000001000A"), "bad sign nibble"), (bytes.fromhex("0000A0000C"), "digit nibble A")],
+)
+def test_inspect_account_file_bad_packed_data_names_record_and_field(fake_corpus, raw, what):
+    data = _acct_record(*SYNTH[0]) + _acct_record("00000002", "", "1.00", limit_raw=raw)
+    with pytest.raises(ToolError) as e:
+        server.inspect_account_file(fake_corpus(data))
+    body = error_of(e)
+    assert body["error_category"] == "invalid_input", what
+    assert "Record 2" in body["message"] and "ACCT-LIMIT" in body["message"]
+
+
+@pytest.mark.parametrize("data", [b"", b"x" * 169, _acct_record(*SYNTH[0]) + b"x"])
+def test_inspect_account_file_rejects_wrong_length(fake_corpus, data):
+    with pytest.raises(ToolError) as e:
+        server.inspect_account_file(fake_corpus(data))
+    body = error_of(e)
+    assert body["error_category"] == "invalid_input" and "170" in body["message"]
+
+
+@pytest.mark.parametrize("path", ["pyproject.toml", ".env", "corpus/../pyproject.toml", "C:/Windows/win.ini"])
+def test_inspect_account_file_refuses_paths_outside_corpus(path):
+    with pytest.raises(ToolError) as e:
+        server.inspect_account_file(path)
+    body = error_of(e)
+    assert body["error_category"] == "invalid_input" and "outside corpus" in body["message"]
+
+
+def test_inspect_account_file_missing_file_is_not_found(fake_corpus):
+    with pytest.raises(ToolError) as e:
+        server.inspect_account_file("corpus/data/nope")
+    assert error_of(e)["error_category"] == "not_found"
+
+
+def test_inspect_account_file_wire_error_is_bare_json():
+    body = wire_error("inspect_account_file", {"path": "pyproject.toml"})
+    assert body["error_category"] == "invalid_input"
+
+
+def test_inspect_account_file_real_sample_decodes():
+    sample = "corpus/legacy/COBOL Programming Course #2 - Learning COBOL/Labs/data/data"
+    out = server.inspect_account_file(sample)
+    assert out["record_length"] == 170 and out["record_count"] == 45
+    assert out["below"] + out["equal"] + out["above"] == 45
+    assert all(s["acct_no_masked"].startswith("****") for s in out["sample_records"])
+
+
 # --------------------------------------------------------------------------- resources and prompt
 
 
@@ -363,7 +486,7 @@ def test_server_registers_the_spec_surface():
 
     tools, templates, resources, prompts = asyncio.run(surface())
     assert mcp.name == "keystone-kb"
-    assert set(tools) == {"search_kb", "get_source", "list_programs"}
+    assert set(tools) == {"search_kb", "get_source", "list_programs", "inspect_account_file"}
     assert all("Do NOT" in t.description for t in tools.values())
     assert templates == {"kb://standards/{name}", "kb://copybooks/{name}"}
     assert resources == {"kb://inventory"}

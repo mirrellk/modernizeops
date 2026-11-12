@@ -88,9 +88,17 @@
       "type": "boolean",
       "description": "True if any listed field is flagged PII = Yes or Possible in data-dictionary.md."
     },
+    "analysis_notes": {
+      "type": "array",
+      "description": "Optional. Questions about the EXISTING layout or logic of a named program (byte positions, working-storage fields, totals lines, header/date fields) that the code can answer. The legacy-analyst resolves them from source; they never block readiness. Requires at least one program.",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
     "missing_information": {
       "type": "array",
-      "description": "Questions that must be answered before design can start. Empty when ready.",
+      "description": "Business decisions the code cannot answer (which program, intended new behavior, acceptance criteria, business rules, conflicting ticket statements) that must be answered before design can start. Empty when ready.",
       "items": {
         "type": "object",
         "additionalProperties": false,
@@ -99,7 +107,7 @@
           "question": {
             "type": "string",
             "minLength": 1,
-            "description": "A specific question a business owner can answer."
+            "description": "A specific business question a business owner can answer and the code cannot."
           },
           "why_it_blocks": {
             "type": "string",

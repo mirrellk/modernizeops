@@ -220,6 +220,63 @@ def test_malformed_new_field_fails_schema(bad, tmp_path, corpus, capsys):
     assert all(e["path"].startswith("$.new_fields[0]") for e in out["errors"]), out
 
 
+# --- analysis_notes -------------------------------------------------------------------------
+
+NOTE = "Confirm the PRINT-REC detail-line length and byte offsets from CBL0001 source."
+
+
+def test_analysis_notes_are_accepted_on_a_ready_brief(tmp_path, corpus, capsys):
+    code, out = _run(tmp_path, corpus, _brief(analysis_notes=[NOTE]), capsys)
+    assert code == 0, out
+    assert out["valid"] is True
+
+
+def test_analysis_notes_is_optional(tmp_path, corpus, capsys):
+    brief = _brief()
+    brief.pop("analysis_notes", None)
+    code, _ = _run(tmp_path, corpus, brief, capsys)
+    assert code == 0
+
+
+def test_empty_analysis_notes_without_program_is_fine(tmp_path, corpus, capsys):
+    brief = _brief(
+        ready=False,
+        programs=[],
+        analysis_notes=[],
+        missing_information=[{"question": "Which program?", "why_it_blocks": "No code to analyse."}],
+    )
+    code, out = _run(tmp_path, corpus, brief, capsys)
+    assert code == 0, out
+
+
+def test_analysis_notes_do_not_satisfy_not_ready_rule(tmp_path, corpus, capsys):
+    # ready=false still needs a business question; notes alone never block.
+    code, out = _run(tmp_path, corpus, _brief(ready=False, analysis_notes=[NOTE]), capsys)
+    assert code == 1
+    assert [e["path"] for e in out["errors"]] == ["$.missing_information"]
+
+
+def test_analysis_notes_without_program_are_rejected(tmp_path, corpus, capsys):
+    brief = _brief(
+        ready=False,
+        programs=[],
+        analysis_notes=[NOTE],
+        missing_information=[{"question": "Which program?", "why_it_blocks": "No code to analyse."}],
+    )
+    code, out = _run(tmp_path, corpus, brief, capsys)
+    assert code == 1
+    [err] = out["errors"]
+    assert err["path"] == "$.analysis_notes"
+    assert "programs is empty" in err["message"]
+
+
+@pytest.mark.parametrize("bad", [[""], [42], "a single string", [{"note": "x"}]])
+def test_malformed_analysis_notes_fail_schema(bad, tmp_path, corpus, capsys):
+    code, out = _run(tmp_path, corpus, _brief(analysis_notes=bad), capsys)
+    assert code == 1
+    assert all(e["path"].startswith("$.analysis_notes") for e in out["errors"]), out
+
+
 # --- real corpus ----------------------------------------------------------------------------
 
 SKILL_MD = REPO_ROOT / ".claude" / "skills" / "cr-brief" / "SKILL.md"
