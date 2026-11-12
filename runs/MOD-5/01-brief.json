@@ -1,0 +1,33 @@
+{
+  "cr_key": "MOD-5",
+  "summary": "Update an interest rate. The ticket (titled 'Update the interest rate') says only 'Please update the rate.' It does not name the rate, the program, the field or the new value.",
+  "programs": [],
+  "fields": [],
+  "new_fields": [],
+  "acceptance_criteria": [],
+  "risk": "high",
+  "pii": true,
+  "missing_information": [
+    {
+      "question": "Which interest rate is meant? No field in corpus/standards/data-dictionary.md (ACCT-FIELDS, PRINT-REC, REPREC, PRT-REC, PRT-REC-DONE, INREC, CARDREC) is an interest rate, and no field name in the dictionary contains RATE or INTEREST. Which existing field, file or DB2 column holds the rate, or is this a new rate field?",
+      "why_it_blocks": "Without a rate field there is no data item to change, so the programs, fields and record layouts affected cannot be identified."
+    },
+    {
+      "question": "Which program computes, applies or reports interest? No program in corpus/legacy/INVENTORY.md refers to interest.",
+      "why_it_blocks": "programs[] cannot be filled, so the impact analysis and the code to change cannot be identified."
+    },
+    {
+      "question": "What is the new rate value, and from which date or processing cycle does it take effect? Does it apply to all accounts or only a subset, and is it to be applied to balances already calculated?",
+      "why_it_blocks": "The new value and its effective scope are needed to write expected outputs, golden files and acceptance tests, and to judge whether a correction is in scope."
+    },
+    {
+      "question": "If the rate is a new data item, what is its COBOL data name and PIC clause (for example S9(3)V9(4) COMP-3)?",
+      "why_it_blocks": "A field the change adds goes in new_fields[] with the name and PIC the ticket gives. Without them no record layout can be designed."
+    },
+    {
+      "question": "What are the testable acceptance criteria? For example, which output field must show the new rate, which sample records or files are used, and what result is expected for each?",
+      "why_it_blocks": "The ticket gives no acceptance criteria, so no automated test can be written and the change cannot be verified."
+    }
+  ],
+  "ready": false
+}

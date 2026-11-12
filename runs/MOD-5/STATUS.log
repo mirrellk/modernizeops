@@ -1,0 +1,2 @@
+2026-11-12T14:10:26Z | intake | ok (brief valid, ready=false)
+2026-11-12T14:10:36Z | readiness-gate | BLOCKED-NEEDS-INFO (5 questions posted to Jira, comment 10000)

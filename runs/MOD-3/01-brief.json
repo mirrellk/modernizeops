@@ -1,0 +1,33 @@
+{
+  "cr_key": "MOD-3",
+  "summary": "Stop charging late fees to VIP accounts during the monthly run.",
+  "programs": [],
+  "fields": [],
+  "new_fields": [],
+  "acceptance_criteria": [],
+  "risk": "high",
+  "pii": true,
+  "missing_information": [
+    {
+      "question": "How is an account identified as VIP? ACCT-FIELDS (data-dictionary.md section 1: ACCT-NO, ACCT-LIMIT, ACCT-BALANCE, LAST-NAME, FIRST-NAME, CLIENT-ADDR, RESERVED, COMMENTS) and the DB2 table Z#####T have no VIP or tier field. Which field, file or table holds the VIP status, or is it recorded only in the free-text COMMENTS field?",
+      "why_it_blocks": "Without a defined VIP indicator there is no condition to test, so the affected record layout and programs cannot be identified."
+    },
+    {
+      "question": "Which program computes or posts late fees? No program in corpus/legacy/INVENTORY.md references a late fee, and no field in data-dictionary.md is a fee or charge.",
+      "why_it_blocks": "programs[] and fields[] cannot be filled, and there is no code for the impact analysis or design to work on."
+    },
+    {
+      "question": "Which job is the monthly run (JCL member or schedule name), and which programs and datasets does it run?",
+      "why_it_blocks": "The batch step to change and its input and output datasets cannot be determined."
+    },
+    {
+      "question": "For a VIP account on the monthly run, should the late fee be skipped entirely, posted as zero, or posted and then reversed? Should the waiver appear on any report or output?",
+      "why_it_blocks": "Each option produces different output records, so acceptance tests and expected outputs cannot be written."
+    },
+    {
+      "question": "From which date or cycle does the waiver apply, and does it cover late fees already assessed before the change?",
+      "why_it_blocks": "Defines the test data and whether a one-off correction of past fees is in scope."
+    }
+  ],
+  "ready": false
+}
