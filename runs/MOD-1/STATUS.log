@@ -22,3 +22,5 @@
 2026-11-13T07:29:42-05:00 | documentation | ok with caveats - design/MOD-1-design.docx, 11 impact rows; templates not read (ReadMcpResourceTool unavailable to doc-publisher); typo in Current State; JCL row Change Type 'Modify'
 2026-11-13T07:29:42-05:00 | human-approval | AWAITING-APPROVAL - release as PR
 2026-11-13T07:57:29-05:00 | human-approval | approved by user - release as PR with documented caveats
+2026-11-13T10:02:05-05:00 | release | ok - branch cr/MOD-1, commit 0985383, PR #1, Jira comment 10010, MOD-1 moved to In Review
+2026-11-13T10:04:37-05:00 | summary | ok - runs/MOD-1/00-summary.md written
