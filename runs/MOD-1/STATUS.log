@@ -1,0 +1,24 @@
+2026-11-12T10:21:11-05:00 | intake | ok - brief valid, ready=false, 5 missing_information items
+2026-11-12T10:21:11-05:00 | readiness-gate | BLOCKED-NEEDS-INFO - Jira comment 10002 posted
+2026-11-12T10:37:02-05:00 | intake | ok - brief re-run, valid, ready=false, 4 missing_information items
+2026-11-12T10:37:02-05:00 | readiness-gate | BLOCKED-NEEDS-INFO - Jira comment 10003 posted
+2026-11-12T16:54:04-05:00 | intake | ok - brief re-run (3rd), valid, ready=false, 3 missing_information items
+2026-11-12T16:54:04-05:00 | readiness-gate | BLOCKED-NEEDS-INFO - Jira comment 10005 posted
+2026-11-12T17:09:06-05:00 | intake | ok - brief re-run (4th, new escalation rules), valid, ready=true, 0 missing_information, 4 analysis_notes
+2026-11-12T17:09:06-05:00 | readiness-gate | AWAITING-APPROVAL - risk=high, pii=true
+2026-11-12T17:51:13-05:00 | readiness-gate | approved by user (high-risk/PII)
+2026-11-12T18:36:36-05:00 | legacy-analysis | BLOCKED-ANALYSIS - 10 findings, 4 blocking open questions; Jira comment posted
+2026-11-12T19:20:41-05:00 | intake | ok - brief re-run (5th, after comment 10007), valid, ready=false, 1 missing_information item, 6 analysis_notes
+2026-11-12T19:20:41-05:00 | readiness-gate | BLOCKED-NEEDS-INFO - Jira comment 10008 posted
+2026-11-12T19:56:59-05:00 | intake | ok - brief re-run (6th, description updated 19:48), valid, ready=true, 0 missing_information, 7 analysis_notes
+2026-11-12T19:56:59-05:00 | readiness-gate | AWAITING-APPROVAL - risk=high, pii=true
+2026-11-12T19:57:23-05:00 | readiness-gate | approved by user (high-risk/PII, re-approved for revised brief)
+2026-11-12T20:02:05-05:00 | legacy-analysis | ok - 11 findings, 3 non-blocking open questions, 7/7 analysis notes answered
+2026-11-12T20:53:49-05:00 | build | ok - 219/219 tests pass (31 new), ruff clean; engineer reports test-first skipped, no golden file, output encoding assumed
+2026-11-12T21:54:56-05:00 | review-1 | fail - 1 major (AC10 has no legacy golden file; needs business decision), 3 minor; 219/219 pass; paused for user decision before revision
+2026-11-12T21:58:02-05:00 | review-1-decision | user accepted rebuilt reference for AC10; Jira comment 10009; runs/MOD-1/04-decision-1.md
+2026-11-12T22:00:55-05:00 | build-rev-1 | ok - 4/4 defects addressed, 228/228 tests pass, ruff clean; review 1 kept as 04-review-1.json
+2026-11-12T22:02:15-05:00 | review-2 | pass - 0 critical, 0 major, 2 minor; 228/228 pass; ruff clean
+2026-11-13T07:29:42-05:00 | documentation | ok with caveats - design/MOD-1-design.docx, 11 impact rows; templates not read (ReadMcpResourceTool unavailable to doc-publisher); typo in Current State; JCL row Change Type 'Modify'
+2026-11-13T07:29:42-05:00 | human-approval | AWAITING-APPROVAL - release as PR
+2026-11-13T07:57:29-05:00 | human-approval | approved by user - release as PR with documented caveats

@@ -1,0 +1,10 @@
+{"verdict": "pass",
+ "defects": [
+  {"severity": "minor", "file": "src/keystone/records/acct.py", "line": 60,
+   "issue": "AcctFields.to_bytes and _encode_comp3 are not requested by the brief and CBL0008 does not use them. Only the round-trip test exercises them. _encode_comp3 assumes scale 2 and 9 digits, drops digits beyond the cent through int() without an error, and produces a wrong-length field for values of 10,000,000.00 or more instead of raising FieldOverflowError. If a future writer reuses this helper, it could silently corrupt a record.",
+   "criterion": null},
+  {"severity": "minor", "file": "src/keystone/programs/cbl0008.py", "line": 216,
+   "issue": "records_read in the run_end log event is computed as len(report.lines) - 7, which assumes a fixed count of 5 header lines and 2 trailer lines. It is correct today, but it is fragile and does not count the records actually read.",
+   "criterion": null}
+ ],
+ "tests_run": 228, "tests_passed": 228}
