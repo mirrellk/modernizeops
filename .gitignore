@@ -11,6 +11,9 @@ __pycache__/
 # Local RAG index
 .rag/
 
+# Hook logs (audit trail, agent-path decisions)
+logs/
+
 # Local-only files
 *.local.*
 CLAUDE.local.md

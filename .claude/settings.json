@@ -5,5 +5,130 @@
     "commit-commands@claude-plugins-official": true,
     "code-review@claude-plugins-official": true,
     "security-guidance@claude-plugins-official": true
+  },
+  "permissions": {
+    "allow": [
+      "Bash(uv run pytest:*)",
+      "Bash(uv run ruff:*)",
+      "Bash(uv run python:*)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git checkout -b cr/:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "mcp__kb__search_kb",
+      "mcp__kb__get_source",
+      "mcp__kb__list_programs",
+      "mcp__kb__inspect_account_file",
+      "mcp__office__read_impact_matrix",
+      "mcp__jira__jira_get_issue",
+      "mcp__jira__jira_search",
+      "mcp__jira__jira_get_transitions",
+      "Write(./runs/**)",
+      "Edit(./runs/**)",
+      "Write(./src/**)",
+      "Edit(./src/**)",
+      "Write(./tests/**)",
+      "Edit(./tests/**)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "mcp__github__create_pull_request",
+      "mcp__jira__jira_add_comment",
+      "mcp__jira__jira_transition_issue",
+      "mcp__office__create_design_doc",
+      "mcp__office__append_impact_rows"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Edit(./.env)",
+      "Write(./.env)",
+      "Read(./.env.sdk)",
+      "Edit(./.env.sdk)",
+      "Write(./.env.sdk)",
+      "Bash(git push origin main:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git push --force-with-lease:*)",
+      "Bash(gh pr merge:*)",
+      "mcp__github__merge_pull_request"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Edit|Write|Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --quiet --project \"$CLAUDE_PROJECT_DIR\" python \"$CLAUDE_PROJECT_DIR/.claude/hooks/block_secrets.py\"",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --quiet --project \"$CLAUDE_PROJECT_DIR\" python \"$CLAUDE_PROJECT_DIR/.claude/hooks/push_guard.py\"",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__github__create_pull_request|mcp__jira__jira_transition_issue",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --quiet --project \"$CLAUDE_PROJECT_DIR\" python \"$CLAUDE_PROJECT_DIR/.claude/hooks/release_gate.py\"",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Write|Edit|Grep|Glob|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --quiet --project \"$CLAUDE_PROJECT_DIR\" python \"$CLAUDE_PROJECT_DIR/.claude/hooks/agent_paths.py\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --quiet --project \"$CLAUDE_PROJECT_DIR\" python \"$CLAUDE_PROJECT_DIR/.claude/hooks/post_edit_lint.py\"",
+            "timeout": 60
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --quiet --project \"$CLAUDE_PROJECT_DIR\" python \"$CLAUDE_PROJECT_DIR/.claude/hooks/audit_log.py\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --quiet --project \"$CLAUDE_PROJECT_DIR\" python \"$CLAUDE_PROJECT_DIR/.claude/hooks/session_context.py\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
   }
 }
