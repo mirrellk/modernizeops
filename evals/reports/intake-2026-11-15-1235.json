@@ -1,0 +1,319 @@
+{
+  "timestamp": "2026-11-15-1235",
+  "golden_dir": "evals/cr_golden",
+  "run_dir": "runs/eval/2026-11-15-1235",
+  "agent": "cr-intake",
+  "max_turns": 15,
+  "json_schema": true,
+  "cases": 8,
+  "metrics": {
+    "ready_accuracy": 1.0,
+    "risk_accuracy": 0.875,
+    "pii_accuracy": 1.0,
+    "programs_jaccard_mean": 1.0,
+    "schema_valid_rate": 1.0,
+    "missing_questions_ok_rate": 1.0
+  },
+  "gates": {
+    "ready_accuracy": 1.0,
+    "schema_valid_rate": 1.0
+  },
+  "passed": true,
+  "gate_failures": [],
+  "results": [
+    {
+      "name": "edge-mixed-requests",
+      "cr_key": "MOD-902",
+      "brief_path": "runs/eval/2026-11-15-1235/edge-mixed-requests-brief.json",
+      "brief_written": true,
+      "schema_valid": true,
+      "validation_errors": [],
+      "actual": {
+        "ready": false,
+        "risk": "high",
+        "pii": true,
+        "programs": [
+          "CBL0001",
+          "CBLDB21"
+        ],
+        "missing_count": 2,
+        "analysis_notes_count": 5
+      },
+      "expected": {
+        "ready": false,
+        "risk": "high",
+        "pii": true,
+        "programs": [
+          "CBL0001",
+          "CBLDB21"
+        ],
+        "min_missing_questions": 1
+      },
+      "ready_ok": true,
+      "risk_ok": true,
+      "pii_ok": true,
+      "programs_jaccard": 1.0,
+      "missing_count": 2,
+      "missing_ok": true,
+      "claude_exit": 0,
+      "claude_error": null
+    },
+    {
+      "name": "edge-no-program",
+      "cr_key": "MOD-903",
+      "brief_path": "runs/eval/2026-11-15-1235/edge-no-program-brief.json",
+      "brief_written": true,
+      "schema_valid": true,
+      "validation_errors": [],
+      "actual": {
+        "ready": false,
+        "risk": "medium",
+        "pii": true,
+        "programs": [],
+        "missing_count": 1,
+        "analysis_notes_count": 0
+      },
+      "expected": {
+        "ready": false,
+        "risk": "high",
+        "pii": true,
+        "programs": [],
+        "min_missing_questions": 1
+      },
+      "ready_ok": true,
+      "risk_ok": false,
+      "pii_ok": true,
+      "programs_jaccard": 1.0,
+      "missing_count": 1,
+      "missing_ok": true,
+      "claude_exit": 0,
+      "claude_error": null
+    },
+    {
+      "name": "edge-unknown-program",
+      "cr_key": "MOD-901",
+      "brief_path": "runs/eval/2026-11-15-1235/edge-unknown-program-brief.json",
+      "brief_written": true,
+      "schema_valid": true,
+      "validation_errors": [],
+      "actual": {
+        "ready": false,
+        "risk": "high",
+        "pii": true,
+        "programs": [],
+        "missing_count": 2,
+        "analysis_notes_count": 0
+      },
+      "expected": {
+        "ready": false,
+        "risk": "high",
+        "pii": true,
+        "programs": [],
+        "min_missing_questions": 1
+      },
+      "ready_ok": true,
+      "risk_ok": true,
+      "pii_ok": true,
+      "programs_jaccard": 1.0,
+      "missing_count": 2,
+      "missing_ok": true,
+      "claude_exit": 0,
+      "claude_error": null
+    },
+    {
+      "name": "mod-1",
+      "cr_key": "MOD-1",
+      "brief_path": "runs/eval/2026-11-15-1235/mod-1-brief.json",
+      "brief_written": true,
+      "schema_valid": true,
+      "validation_errors": [],
+      "actual": {
+        "ready": true,
+        "risk": "high",
+        "pii": true,
+        "programs": [
+          "CBL0008"
+        ],
+        "missing_count": 0,
+        "analysis_notes_count": 5
+      },
+      "expected": {
+        "ready": true,
+        "risk": "high",
+        "pii": true,
+        "programs": [
+          "CBL0008"
+        ],
+        "min_missing_questions": 0
+      },
+      "ready_ok": true,
+      "risk_ok": true,
+      "pii_ok": true,
+      "programs_jaccard": 1.0,
+      "missing_count": 0,
+      "missing_ok": true,
+      "claude_exit": 0,
+      "claude_error": null
+    },
+    {
+      "name": "mod-2",
+      "cr_key": "MOD-2",
+      "brief_path": "runs/eval/2026-11-15-1235/mod-2-brief.json",
+      "brief_written": true,
+      "schema_valid": true,
+      "validation_errors": [],
+      "actual": {
+        "ready": false,
+        "risk": "high",
+        "pii": true,
+        "programs": [],
+        "missing_count": 4,
+        "analysis_notes_count": 0
+      },
+      "expected": {
+        "ready": false,
+        "risk": "high",
+        "pii": true,
+        "programs": [],
+        "min_missing_questions": 2
+      },
+      "ready_ok": true,
+      "risk_ok": true,
+      "pii_ok": true,
+      "programs_jaccard": 1.0,
+      "missing_count": 4,
+      "missing_ok": true,
+      "claude_exit": 0,
+      "claude_error": null
+    },
+    {
+      "name": "mod-3",
+      "cr_key": "MOD-3",
+      "brief_path": "runs/eval/2026-11-15-1235/mod-3-brief.json",
+      "brief_written": true,
+      "schema_valid": true,
+      "validation_errors": [],
+      "actual": {
+        "ready": false,
+        "risk": "high",
+        "pii": true,
+        "programs": [],
+        "missing_count": 5,
+        "analysis_notes_count": 0
+      },
+      "expected": {
+        "ready": false,
+        "risk": "high",
+        "pii": true,
+        "programs": [],
+        "min_missing_questions": 3
+      },
+      "ready_ok": true,
+      "risk_ok": true,
+      "pii_ok": true,
+      "programs_jaccard": 1.0,
+      "missing_count": 5,
+      "missing_ok": true,
+      "claude_exit": 0,
+      "claude_error": null
+    },
+    {
+      "name": "mod-4",
+      "cr_key": "MOD-4",
+      "brief_path": "runs/eval/2026-11-15-1235/mod-4-brief.json",
+      "brief_written": true,
+      "schema_valid": true,
+      "validation_errors": [],
+      "actual": {
+        "ready": false,
+        "risk": "high",
+        "pii": true,
+        "programs": [
+          "CBL0001",
+          "CBL0002",
+          "CBL0004",
+          "CBL0005",
+          "CBL0007",
+          "CBL0008",
+          "CBL0009",
+          "CBL0010",
+          "CBL0011",
+          "CBL0012",
+          "CBL0033",
+          "CBL006A",
+          "CBL0106",
+          "CBL0106C",
+          "CBLDB21",
+          "CBLDB22",
+          "CBLDB23"
+        ],
+        "missing_count": 3,
+        "analysis_notes_count": 6
+      },
+      "expected": {
+        "ready": false,
+        "risk": "high",
+        "pii": true,
+        "programs": [
+          "CBL0001",
+          "CBL0002",
+          "CBL0004",
+          "CBL0005",
+          "CBL0007",
+          "CBL0008",
+          "CBL0009",
+          "CBL0010",
+          "CBL0011",
+          "CBL0012",
+          "CBL0033",
+          "CBL006A",
+          "CBL0106",
+          "CBL0106C",
+          "CBLDB21",
+          "CBLDB22",
+          "CBLDB23"
+        ],
+        "min_missing_questions": 1
+      },
+      "ready_ok": true,
+      "risk_ok": true,
+      "pii_ok": true,
+      "programs_jaccard": 1.0,
+      "missing_count": 3,
+      "missing_ok": true,
+      "claude_exit": 0,
+      "claude_error": null
+    },
+    {
+      "name": "mod-5",
+      "cr_key": "MOD-5",
+      "brief_path": "runs/eval/2026-11-15-1235/mod-5-brief.json",
+      "brief_written": true,
+      "schema_valid": true,
+      "validation_errors": [],
+      "actual": {
+        "ready": false,
+        "risk": "high",
+        "pii": true,
+        "programs": [],
+        "missing_count": 5,
+        "analysis_notes_count": 0
+      },
+      "expected": {
+        "ready": false,
+        "risk": "high",
+        "pii": true,
+        "programs": [],
+        "min_missing_questions": 3
+      },
+      "ready_ok": true,
+      "risk_ok": true,
+      "pii_ok": true,
+      "programs_jaccard": 1.0,
+      "missing_count": 5,
+      "missing_ok": true,
+      "claude_exit": 0,
+      "claude_error": null
+    }
+  ]
+}

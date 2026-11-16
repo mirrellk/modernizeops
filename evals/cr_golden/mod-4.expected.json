@@ -1,0 +1,13 @@
+{
+  "cr_key": "MOD-4",
+  "ready": false,
+  "risk": "high",
+  "pii": true,
+  "programs": [
+    "CBL0001", "CBL0002", "CBL0004", "CBL0005", "CBL0007", "CBL0008", "CBL0009", "CBL0010",
+    "CBL0011", "CBL0012", "CBL0033", "CBL006A", "CBL0106", "CBL0106C", "CBLDB21", "CBLDB22",
+    "CBLDB23"
+  ],
+  "min_missing_questions": 1,
+  "rationale": "'All printed reports' chooses every program that prints ACCT-NO-O (data-dictionary Appendix A). CBL0006 also prints it but its PROGRAM-ID maps to two source files (CBL0006.cobol, CBLC1.cobol), so it cannot appear in programs[] and is a question. The masked format (what replaces the first 4 characters of the 8-byte ACCT-NO-O) is new behavior the ticket does not give. High: PII handling changes. PII: ACCT-NO is PII = Yes. The program set is the scored reference for Jaccard only."
+}

@@ -1,0 +1,9 @@
+{
+  "cr_key": "MOD-1",
+  "ready": true,
+  "risk": "high",
+  "pii": true,
+  "programs": ["CBL0008"],
+  "min_missing_questions": 0,
+  "rationale": "Names one program (CBL0008, one source file), the new flag's position, size, values and the equal case, the line length and padding, the sample file and the totals definition; acceptance is stated. TLIMIT/TBALANCE, WRITE-TLIMIT-TBALANCE and the run-date bytes are CBL0008 working storage/logic, so analysis_notes, not blockers. High: record layout changes (62 -> 65 bytes) and money totals are ported. PII: ACCT-BALANCE/ACCT-LIMIT are PII = Yes."
+}

@@ -1,0 +1,9 @@
+{
+  "cr_key": "MOD-3",
+  "ready": false,
+  "risk": "high",
+  "pii": true,
+  "programs": [],
+  "min_missing_questions": 3,
+  "rationale": "Matches cr-brief Example 2: no VIP indicator, no late-fee program and no 'monthly run' job exist in the corpus, and there are no acceptance criteria. At least: how VIP is identified, which program posts late fees, what the waiver does to output. High: money posted to accounts. PII: touches account records although fields are unknown."
+}

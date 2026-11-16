@@ -1,0 +1,9 @@
+{
+  "cr_key": "MOD-901",
+  "ready": false,
+  "risk": "high",
+  "pii": true,
+  "programs": [],
+  "min_missing_questions": 1,
+  "rationale": "Edge case: CBL0099 is not a PROGRAM-ID in INVENTORY.md, so it cannot go in programs[] (the validator rejects it) and 'which program?' is a blocker; intake must not substitute a similar program. The rule and acceptance are otherwise complete. High: money arithmetic on ACCT-BALANCE. PII: ACCT-BALANCE is PII = Yes."
+}

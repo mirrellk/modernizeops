@@ -1,0 +1,9 @@
+{
+  "cr_key": "MOD-2",
+  "ready": false,
+  "risk": "high",
+  "pii": true,
+  "programs": [],
+  "min_missing_questions": 2,
+  "rationale": "'The account report' fits many programs and the ticket does not choose one (blocker 1, programs stays empty). The subtotal line layout and the 'grand total' it reconciles to are new behavior the ticket does not define (blocker 2). 'State field' and 'balance field' resolve to USA-STATE and ACCT-BALANCE. High: new money totals and a new report line. PII: ACCT-BALANCE and USA-STATE are PII = Yes."
+}

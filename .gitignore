@@ -14,6 +14,9 @@ __pycache__/
 # Headless backlog triage scratch briefs (scripts/triage_backlog.ps1)
 runs/triage/
 
+# Intake eval scratch briefs (scripts/eval_intake.py)
+runs/eval/
+
 # Hook logs (audit trail, agent-path decisions)
 logs/
 
