@@ -1,0 +1,49 @@
+{
+  "cr_key": "MOD-1",
+  "summary": "Port CBL0008 (account report) to a Python module that reproduces its report from the sample ACCTREC file and adds a one-byte OVER-LIMIT flag at byte 65 of each detail line, preceded by two spaces at bytes 63-64. All print lines become 65 bytes. OVER-LIMIT is 'Y' when ACCT-BALANCE is greater than ACCT-LIMIT and 'N' otherwise, with no printed heading. The run date is masked only in test comparisons.",
+  "programs": ["CBL0008"],
+  "fields": [
+    "ACCT-NO",
+    "LAST-NAME",
+    "ACCT-LIMIT",
+    "ACCT-BALANCE",
+    "PRINT-REC",
+    "ACCT-NO-O",
+    "LAST-NAME-O",
+    "ACCT-LIMIT-O",
+    "ACCT-BALANCE-O"
+  ],
+  "new_fields": [
+    {
+      "name": "OVER-LIMIT",
+      "pic": "X(1)",
+      "purpose": "One-byte flag at byte 65 of each detail line, after two spaces at bytes 63-64. 'Y' when ACCT-BALANCE is greater than ACCT-LIMIT, otherwise 'N' (equal is 'N'). No printed heading."
+    }
+  ],
+  "acceptance_criteria": [
+    "On the sample ACCTREC file, the Python TLIMIT total equals the sum of ACCT-LIMIT over all records read and equals the TLIMIT value CBL0008 prints.",
+    "On the sample ACCTREC file, the Python TBALANCE total equals the sum of ACCT-BALANCE over all records read and equals the TBALANCE value CBL0008 prints.",
+    "For a record with ACCT-BALANCE greater than ACCT-LIMIT, OVER-LIMIT is 'Y'.",
+    "For one synthetic test record with ACCT-BALANCE equal to ACCT-LIMIT, OVER-LIMIT is 'N'. The synthetic record is used in tests only and is never added to the sample file.",
+    "For a record with ACCT-BALANCE less than ACCT-LIMIT, OVER-LIMIT is 'N'.",
+    "Each detail line is 65 bytes long: bytes 63-64 are spaces and byte 65 is OVER-LIMIT ('Y' or 'N').",
+    "Every print line (header, detail and totals) is 65 bytes long, padded with spaces on the right.",
+    "No heading is printed for OVER-LIMIT, and the text of HEADER-1 to HEADER-4 is unchanged.",
+    "Byte positions refer to the logical print record, and the Python output writes no ASA carriage-control byte.",
+    "Apart from bytes 63-65 of each detail line, the padding to 65 bytes and the run-date characters masked in the test comparison, the Python report equals the CBL0008 output byte for byte on the sample file.",
+    "The run date is masked only in test comparisons; the Python module does not mask it in its output."
+  ],
+  "analysis_notes": [
+    "From CBL0008.cobol, confirm that PRINT-REC is the 62-byte report record (ACCT-NO-O, FILLER X(02), LAST-NAME-O, FILLER X(02), ACCT-LIMIT-O, FILLER X(02), ACCT-BALANCE-O, trailing FILLER X(02)) and that no item lies beyond byte 62, so that the new bytes 63-65 are added at the end of the record.",
+    "From CBL0008.cobol, identify the WORKING-STORAGE items TLIMIT and TBALANCE (not in data-dictionary.md, so they are not in fields[]), their PIC and USAGE, and the paragraph that accumulates them over every record read.",
+    "From CBL0008.cobol, identify the edited items TLIMIT-O and TBALANCE-O that print the totals, their PIC and byte positions, and the length of the totals line before it is moved into PRINT-REC. Confirm the spelling of these names as in CBL0008.cobol.",
+    "From CBL0008.cobol, check whether the MOVE of TLIMIT and TBALANCE into the edited totals items can drop high-order digits, since the edited pictures may hold fewer integer digits than the totals.",
+    "From CBL0008.cobol, identify which of HEADER-1 to HEADER-4 contain characters written from WS-CURRENT-DATE-DATA, with their byte positions, so that the test comparison masks exactly those bytes.",
+    "From CBL0008.cobol, confirm the WRITE PRINT-REC statements and the record area they use, so that the Python output matches the logical print record excluding any ASA carriage-control byte.",
+    "From the sample ACCTREC file named in the ticket, confirm the record length (170 bytes per the ACCT-FIELDS layout that CBL0008 reads) and the record count, and list the record numbers with ACCT-BALANCE below and above ACCT-LIMIT for the OVER-LIMIT tests. The expected TLIMIT and TBALANCE values may be derived from the file, per ticket comment 10007."
+  ],
+  "risk": "high",
+  "pii": true,
+  "missing_information": [],
+  "ready": true
+}

@@ -29,12 +29,18 @@ HEADINGS = ["1 Summary", "2 Current State (Legacy)", "3 Proposed Change", "4 Dat
 
 @pytest.fixture(autouse=True)
 def office(tmp_path, monkeypatch):
-    """Point the server at copies of the templates so the repo files are never written."""
+    """Point the server at copies of the templates so the repo files are never written.
+
+    Nothing is read from design/: the live register there holds real CR rows.
+    """
     docx = tmp_path / "design-doc-template.docx"
+    xlsx_template = tmp_path / "impact-matrix-template.xlsx"
     xlsx = tmp_path / "impact-matrix.xlsx"
     shutil.copyfile(REPO_ROOT / "templates" / "design-doc-template.docx", docx)
-    shutil.copyfile(REPO_ROOT / "design" / "impact-matrix.xlsx", xlsx)
+    shutil.copyfile(REPO_ROOT / "templates" / "impact-matrix-template.xlsx", xlsx_template)
+    shutil.copyfile(xlsx_template, xlsx)
     monkeypatch.setattr(server, "DESIGN_TEMPLATE", docx)
+    monkeypatch.setattr(server, "IMPACT_TEMPLATE", xlsx_template)
     monkeypatch.setattr(server, "IMPACT_MATRIX", xlsx)
     monkeypatch.setattr(server, "DESIGN_DIR", tmp_path / "design")
     return tmp_path
@@ -226,9 +232,26 @@ def test_read_impact_matrix_empty_is_not_an_error():
 
 def test_missing_matrix_is_not_found(office):
     (office / "impact-matrix.xlsx").unlink()
+    (office / "impact-matrix-template.xlsx").unlink()  # else the register is recreated from it
     with pytest.raises(ToolError) as e:
         read_impact_matrix()
     assert error_of(e)["error_category"] == "not_found"
+
+
+def test_missing_matrix_is_created_from_the_template(office):
+    (office / "impact-matrix.xlsx").unlink()
+    template = (office / "impact-matrix-template.xlsx").read_bytes()
+    assert read_impact_matrix() == []
+    assert (office / "impact-matrix.xlsx").read_bytes() == template
+    assert append_impact_rows([impact()]) == 1
+    assert read_impact_matrix() == [impact()]
+    assert (office / "impact-matrix-template.xlsx").read_bytes() == template  # never written
+
+
+def test_existing_matrix_is_never_replaced_by_the_template(office):
+    append_impact_rows([impact()])
+    server._ensure_matrix()
+    assert read_impact_matrix() == [impact()]
 
 
 def test_locked_matrix_is_backend_unavailable_and_retryable(monkeypatch):
@@ -311,7 +334,7 @@ def test_impact_columns_resource_reports_dropdowns():
 
 
 def test_resource_with_missing_template_is_not_found(office):
-    (office / "impact-matrix.xlsx").unlink()
+    (office / "impact-matrix-template.xlsx").unlink()  # the resource describes the template
     with pytest.raises(ResourceNotFoundError) as e:
         read("templates://impact-columns")
     assert error_of(e)["error_category"] == "not_found"

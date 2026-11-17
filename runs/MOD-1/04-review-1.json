@@ -1,0 +1,16 @@
+{"verdict": "fail",
+ "defects": [
+  {"severity": "major", "file": "tests/programs/test_cbl0008.py", "line": 211,
+   "issue": "AC10 is not verified against actual CBL0008 output. No legacy golden file exists (tests/fixtures/cbl0008/ is absent and no CBL0008 SYSOUT exists in the corpus). The test compares the report to an expected value the author rebuilt in Python: detail lines come from format(',.2f') and header/trailer text is hard-coded. I checked those strings against CBL0008.cobol:60-109 and they match the source. But 'equals the CBL0008 output byte for byte' is only checked against the author's reading of the source, and the comparison is on str lines, not the cp037 bytes the module writes. KFB-STD-001 test item 1 requires a byte-for-byte golden file against legacy output. Either capture a legacy PRTLINE golden file for the sample, or get an explicit business decision that a source-derived expected report is acceptable for AC10.",
+   "criterion": "Apart from bytes 63-65 of each detail line, the padding to 65 bytes and the run-date characters masked in the test comparison, the Python report equals the CBL0008 output byte for byte on the sample file."},
+  {"severity": "minor", "file": "src/keystone/programs/cbl0008.py", "line": 55,
+   "issue": "decode_comp3 accepts only sign nibbles C, F and D. IBM packed decimal also accepts A, E (positive) and B (negative), so valid data the mainframe processes would raise InvalidNumericDataError here. This does not affect the sample file.",
+   "criterion": null},
+  {"severity": "minor", "file": "src/keystone/programs/cbl0008.py", "line": 26,
+   "issue": "The module does no logging at all: no keystone.logging.get_logger, no JSON run/record events. So test_run_logs_no_account_numbers_or_names (tests/programs/test_cbl0008.py:330) passes without testing anything and gives no protection against PII if logging is added later.",
+   "criterion": null},
+  {"severity": "minor", "file": "src/keystone/programs/cbl0008.py", "line": 43,
+   "issue": "The ACCT-FIELDS input layout is defined inline in the program module (only 4 of its fields are sliced, at fixed offsets). The convention is one layout definition per record in src/keystone/records/ with offsets from the data dictionary.",
+   "criterion": null}
+ ],
+ "tests_run": 219, "tests_passed": 219}

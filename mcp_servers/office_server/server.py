@@ -5,6 +5,10 @@
 Tools: create_design_doc, append_impact_rows and read_impact_matrix. Resources:
 templates://design-doc and templates://impact-columns.
 
+design/impact-matrix.xlsx is the live register. templates/impact-matrix-template.xlsx is its
+clean template (header, frozen pane, autofilter and dropdowns, no data rows); the register is
+created from it on first use only if it does not exist, and is never overwritten.
+
 Built on the mcp 2.x ``MCPServer``, which replaced v1's ``FastMCP``, the same way as
 keystone-kb (mcp_servers/kb_server/server.py).
 
@@ -39,6 +43,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 
 # Module-level so tests can point them at tmp_path copies.
 DESIGN_TEMPLATE = REPO_ROOT / "templates" / "design-doc-template.docx"
+IMPACT_TEMPLATE = REPO_ROOT / "templates" / "impact-matrix-template.xlsx"
 IMPACT_MATRIX = REPO_ROOT / "design" / "impact-matrix.xlsx"
 DESIGN_DIR = REPO_ROOT / "design"
 
@@ -382,19 +387,40 @@ def create_design_doc(cr_key: str, title: str, sections: DesignSections,
 # --------------------------------------------------------------------------- impact matrix
 
 
-def _open_matrix():
-    _require(IMPACT_MATRIX, "impact matrix")
-    wb = load_workbook(IMPACT_MATRIX)
+def _ensure_matrix() -> None:
+    """Create the live register from the clean template if, and only if, it does not exist."""
+    if IMPACT_MATRIX.is_file():
+        return
+    _require(IMPACT_TEMPLATE, "impact-matrix template")
+    try:
+        IMPACT_MATRIX.parent.mkdir(parents=True, exist_ok=True)
+        # "xb" fails rather than overwrite a register created meanwhile
+        with IMPACT_TEMPLATE.open("rb") as src, IMPACT_MATRIX.open("xb") as dst:
+            shutil.copyfileobj(src, dst)
+    except FileExistsError:
+        pass
+    except PermissionError as exc:
+        raise _locked(IMPACT_MATRIX, exc) from exc
+
+
+def _load_sheet(path: Path):
+    """Open ``path`` and check its Impact sheet has the expected headers."""
+    wb = load_workbook(path)
     if IMPACT_SHEET not in wb.sheetnames:
-        _fail("backend_unavailable", f"{_display(IMPACT_MATRIX)} has no {IMPACT_SHEET!r} sheet.",
-              "Restore design/impact-matrix.xlsx from git.")
+        _fail("backend_unavailable", f"{_display(path)} has no {IMPACT_SHEET!r} sheet.",
+              f"Restore {_display(path)} from git.")
     ws = wb[IMPACT_SHEET]
     headers = [c.value for c in ws[1]][:len(COLUMNS)]
     expected = [h for h, _ in COLUMNS]
     if headers != expected:
         _fail("backend_unavailable", f"The {IMPACT_SHEET} sheet's headers are {headers}, expected {expected}.",
-              "Restore design/impact-matrix.xlsx from git.")
+              f"Restore {_display(path)} from git.")
     return wb, ws
+
+
+def _open_matrix():
+    _ensure_matrix()
+    return _load_sheet(IMPACT_MATRIX)
 
 
 def _allowed_values(ws: Worksheet) -> dict[str, list[str]]:
@@ -429,7 +455,8 @@ def _row_key(values: dict[str, str]) -> tuple[str, ...]:
 def append_impact_rows(rows: list[ImpactRow]) -> int:
     """Add or update rows in the Impact sheet of design/impact-matrix.xlsx.
 
-    Use it after the impact analysis, one row per (program, paragraph, field) a change
+    If the register does not exist yet it is first created from
+    templates/impact-matrix-template.xlsx. Use it after the impact analysis, one row per (program, paragraph, field) a change
     touches. Rows are upserted on (CR Key, Program, Paragraph, Field): a row with a new key
     is appended after the last data row; a row whose key already exists updates that row in
     place. Other rows, the header, filters and dropdowns are never touched. The whole batch
@@ -507,7 +534,8 @@ def read_impact_matrix(cr_key: str | None = None) -> list[ImpactRow]:
 
     Returns a list of rows in sheet order, each with the fields of append_impact_rows
     (cr_key, program, paragraph, copybook, field, change_type, risk, pii, test_id, owner,
-    status). An empty list is not an error.
+    status). An empty list is not an error; a register that does not exist yet is created
+    empty from templates/impact-matrix-template.xlsx.
     """
     key = _cr_key(cr_key) if cr_key is not None else None
     _, ws = _open_matrix()
@@ -561,14 +589,17 @@ def design_doc_template() -> str:
 
 
 @mcp.resource("templates://impact-columns", mime_type="application/json",
-              description="Impact sheet columns: header, ImpactRow field, allowed dropdown values.")
+              description="Impact sheet columns from templates/impact-matrix-template.xlsx: header, "
+                          "ImpactRow field, allowed dropdown values. Rows go to design/impact-matrix.xlsx.")
 def impact_columns() -> str:
     with _as_resource_error():
-        _, ws = _open_matrix()
+        _require(IMPACT_TEMPLATE, "impact-matrix template")
+        _, ws = _load_sheet(IMPACT_TEMPLATE)
     allowed = _allowed_values(ws)
     columns = [ImpactColumn(column=h, field=f, allowed=allowed.get(h)) for h, f in COLUMNS]
-    return json.dumps({"workbook": _display(IMPACT_MATRIX), "sheet": IMPACT_SHEET,
-                       "upsert_key": list(UPSERT_KEY), "columns": columns}, indent=1)
+    return json.dumps({"template": _display(IMPACT_TEMPLATE), "workbook": _display(IMPACT_MATRIX),
+                       "sheet": IMPACT_SHEET, "upsert_key": list(UPSERT_KEY), "columns": columns},
+                      indent=1)
 
 
 def main() -> None:
