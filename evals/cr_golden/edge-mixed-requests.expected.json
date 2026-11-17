@@ -1,0 +1,9 @@
+{
+  "cr_key": "MOD-902",
+  "ready": false,
+  "risk": "high",
+  "pii": true,
+  "programs": ["CBL0001", "CBLDB21"],
+  "min_missing_questions": 1,
+  "rationale": "Edge case: two unrelated requests in one ticket. Part 1 (blank FIRST-NAME-O in CBL0001) is fully specified with acceptance. Part 2 (make CBLDB21 faster) has no target or acceptance criteria, so it is a blocker (and whether to split the ticket can be asked). Both programs are named and each maps to one source file. High: PII handling on the report changes. PII: FIRST-NAME is PII = Yes."
+}

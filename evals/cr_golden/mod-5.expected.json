@@ -1,0 +1,9 @@
+{
+  "cr_key": "MOD-5",
+  "ready": false,
+  "risk": "high",
+  "pii": true,
+  "programs": [],
+  "min_missing_questions": 3,
+  "rationale": "'Please update the rate.' names no rate, program, field, value or acceptance criteria, and no interest-rate field or program exists in the corpus. At least: which rate/field, which program, the new value and acceptance. High: interest is money arithmetic. PII: touches account records although fields are unknown."
+}
